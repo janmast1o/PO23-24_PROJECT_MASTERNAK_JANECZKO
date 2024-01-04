@@ -7,7 +7,6 @@ public class Animal {
     private Position position;
     private final List<Integer> genes;
     private int activeGeneNumber;
-    //AnimalHistory
     private int energyLeft;
     private WorldDirection facedSide;
 
@@ -19,7 +18,7 @@ public class Animal {
         this.activeGeneNumber = 0;
         this.energyLeft = STARTENERGY;
         this.facedSide = WorldDirection.values()[(int) (Math.random() * WorldDirection.values().length)];
-        historian = new AnimalInformation ();
+        historian = new AnimalInformation (0);
     }
 
     public Position getPosition() {

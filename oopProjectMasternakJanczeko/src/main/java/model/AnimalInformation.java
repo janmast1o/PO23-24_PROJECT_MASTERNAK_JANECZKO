@@ -8,9 +8,19 @@ public class AnimalInformation {
     private int death = -1; //as long as -1 that means animal is alive
 
     public AnimalInformation (int birth) {
-        children = new HashSet<Animal>();
+        numberOfEatenPlants = 0;
+        children = new HashSet<>();
         this.birth = birth;
     }
+
+    public HashSet<Animal> getChildren () {
+        return children;
+    }
+
+    public int getBirth () {
+        return birth;
+    }
+
 
     public void addChild(Animal child) {
         children.add (child);
@@ -22,5 +32,13 @@ public class AnimalInformation {
 
     public int getNumberOfDescendants() {
         return children.size();
+    }
+
+    public void registerPlantConsumption () {
+        numberOfEatenPlants++;
+    }
+
+    public int getDeath () {
+        return death;
     }
 }

@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 
-public class HelloController {
+public class Controller {
     @FXML
     private Spinner<Integer> numberSpinner;
 
@@ -25,7 +25,6 @@ public class HelloController {
         welcomeText.setVisible(false);
         numberSpinner.setVisible(false);
         acceptButton.setVisible(false);
-        //startAnimation();
         //Animal animal = new Animal(0,new Position(0,0), new ArrayList<>(Arrays.asList(1,2,3,4)),7);
         //WorldMap worldMap = new WorldMap(new Boundaries(new Position(0,0),new Position(n,1)));
     }

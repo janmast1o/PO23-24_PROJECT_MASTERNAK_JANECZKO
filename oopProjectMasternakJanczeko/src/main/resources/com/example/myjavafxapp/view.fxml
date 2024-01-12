@@ -9,13 +9,13 @@
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.myjavafxapp.Controller">
   <padding>
-    <Insets bottom="80" left="100" right="100" top="160"/>
+    <Insets bottom="120" left="220" right="220" top="250"/>
   </padding>
 
   <Label fx:id="number"> </Label>
 
-  <Label fx:id="welcomeText">Enter n using Spinner</Label>
-  <Spinner fx:id="numberSpinner" max="40" editable="true" initialValue="2"/>
+  <Label fx:id="enterText">Enter n using Spinner</Label>
+  <Spinner fx:id="numberSpinner" max="20" editable="true" initialValue="2"/>
   <Button fx:id="acceptButton" text="Accept" onAction="#onButtonClick" />
   <!--ProgressBar-->
 </VBox>

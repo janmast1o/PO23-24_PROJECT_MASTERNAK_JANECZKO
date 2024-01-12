@@ -13,16 +13,28 @@ public class Controller {
     private Label number;
 
     @FXML
-    private Label welcomeText;
+    private Label enterText;
 
     @FXML
     private Button acceptButton;
 
+    public Spinner<Integer> getNumberSpinner() {
+        return numberSpinner;
+    }
+
+    public Label getNumber() {
+        return number;
+    }
+
+    public Button getAcceptButton() {
+        return acceptButton;
+    }
+
     @FXML
-    protected void onButtonClick() {
-        Integer n = (Integer) numberSpinner.getValue();
-        number.setText(Integer.toString(n));
-        welcomeText.setVisible(false);
+    public void onButtonClick() {
+        number.setVisible(true);
+        number.setText(Integer.toString((Integer) numberSpinner.getValue()));
+        enterText.setVisible(false);
         numberSpinner.setVisible(false);
         acceptButton.setVisible(false);
         //Animal animal = new Animal(0,new Position(0,0), new ArrayList<>(Arrays.asList(1,2,3,4)),7);

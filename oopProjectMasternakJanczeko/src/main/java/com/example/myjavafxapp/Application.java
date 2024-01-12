@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-//Rysowanie grida w fx
+
 //Zwierzak od lewej gory do prawej i pozniej tak samo w 2 rzedzie
 //Odpalanie asynchronicznie
 //Mozliwosc stopowania bez terminacji okienka
@@ -18,23 +18,28 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        VBox vbox = FXMLLoader.load(getClass().getResource("view.fxml"));
-        Button button = new Button("Create Grid");
-        vbox.getChildren().add(button);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view.fxml"));
+        VBox vbox = loader.load();
+        Controller controller = loader.getController();
+        controller.getNumber().setVisible(false);
+        Button button = controller.getAcceptButton();
+
         button.setOnAction(e -> {
+            int n = (Integer) controller.getNumberSpinner().getValue();
+            controller.onButtonClick();
             GridPane grid = new GridPane();
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    Rectangle rect = new Rectangle(40, 40);
-                    rect.setStroke(javafx.scene.paint.Color.BLACK); // obramowanie
-                    rect.setFill(javafx.scene.paint.Color.WHITE); // wypełnienie
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < 2; j++) {
+                    Rectangle rect = new Rectangle(60, 60);
+                    rect.setStroke(javafx.scene.paint.Color.BLACK);
+                    rect.setFill(javafx.scene.paint.Color.WHITE);
                     grid.add(rect, i, j);
                 }
             }
             vbox.getChildren().add(grid);
         });
 
-        Scene scene = new Scene(vbox, 800, 600);
+        Scene scene = new Scene(vbox, 1250, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

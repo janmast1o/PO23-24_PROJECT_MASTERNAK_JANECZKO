@@ -5,30 +5,40 @@ public class AnimalInformation {
     private HashSet<Animal> children;
     private int numberOfEatenPlants;
     private final int birth;
-    private int death = -1;             //as long as -1 that means animal is alive
+    private int death = -1; //as long as -1 that means animal is alive
 
     public AnimalInformation (int birth) {
-        this.children = new HashSet<Animal>();
+        numberOfEatenPlants = 0;
+        children = new HashSet<>();
         this.birth = birth;
     }
 
+    public HashSet<Animal> getChildren () {
+        return children;
+    }
+
+    public int getBirth () {
+        return birth;
+    }
+
+
     public void addChild(Animal child) {
-        children.add(child);
+        children.add (child);
     }
 
-    public void increaseNumberOfEatenPlants() {
-        this.numberOfEatenPlants += 1;
-    }
-
-    public void die(int death) {
+    public void die (int death) {
         this.death = death;
     }
 
-    public int getNumberOfChildren() {
+    public int getNumberOfDescendants() {
         return children.size();
     }
 
-//    public int getNumberOfDescendants(Animal animal) {
-//
-//    }
+    public void registerPlantConsumption () {
+        numberOfEatenPlants++;
+    }
+
+    public int getDeath () {
+        return death;
+    }
 }

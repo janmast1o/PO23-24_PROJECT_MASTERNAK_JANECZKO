@@ -1,4 +1,5 @@
-package model;
+package util;
+import model.Animal;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,7 +8,7 @@ public class GenesGiven {
     private final static int MAXIMUMMUTATIONCHANGES = 3;         //as for now
     private final static boolean ACTIVESUBSTITUTION = false;     //as for now
 
-    void mutationChange(ArrayList<Integer> childGenes) {
+    private static void mutationChange(ArrayList<Integer> childGenes) {
         Random rand = new Random();
         int indexToChange = rand.nextInt(childGenes.size());
         int newGene = rand.nextInt(8);
@@ -17,7 +18,7 @@ public class GenesGiven {
         childGenes.set(indexToChange, newGene);
     }
 
-    void mutationSwap(ArrayList<Integer> childGenes) {
+    private static void mutationSwap(ArrayList<Integer> childGenes) {
         Random rand = new Random();
         int firstIndex = rand.nextInt(childGenes.size());
         int secondIndex = rand.nextInt(childGenes.size());
@@ -29,10 +30,10 @@ public class GenesGiven {
         childGenes.set(secondIndex, firstGene);
     }
 
-    ArrayList<Integer> createChildGenes(Animal firstParent, Animal secondParent) {
+    public static ArrayList<Integer> createChildGenes(Animal firstParent, Animal secondParent) {
         Random rand = new Random();
-        int firstParentEnergy = firstParent.getEnergyLeft();
-        int secondParentEnergy = secondParent.getEnergyLeft();
+        int firstParentEnergy = firstParent.getEnergy();
+        int secondParentEnergy = secondParent.getEnergy();
         double placeOfDivision = (double) firstParentEnergy /(firstParentEnergy+secondParentEnergy);
         boolean strongerRightSite = rand.nextDouble() <= placeOfDivision;
 

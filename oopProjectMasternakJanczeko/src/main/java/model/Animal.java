@@ -2,46 +2,48 @@ package model;
 import java.util.ArrayList;
 
 public class Animal {
-    private final static int STARTENERGY = 150;         //as for now
-    private final static int NUMBEROFGENES = 3;         //as for now
     private Position position;
     private final ArrayList<Integer> genes;
     private int activeGeneNumber;
-    private int energyLeft;
+    private int energy;
     private WorldDirection facedSide;
     private AnimalInformation historian;
 
-    public Animal(Position position, ArrayList<Integer> genes) {
+    public Animal (int birth, Position position, ArrayList<Integer> genes, int energy) {
         this.position = position;
         this.genes = genes;
         this.activeGeneNumber = 0;
-        this.energyLeft = STARTENERGY;
+        this.energy = energy;
         this.facedSide = WorldDirection.values()[(int) (Math.random() * WorldDirection.values().length)];
-        this.historian = new AnimalInformation (0);
+        this.historian = new AnimalInformation (birth);
     }
 
     public Position getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    private void setPosition(Position position) {
         this.position = position;
-    }
-
-    public ArrayList<Integer> getGenes() {
-        return genes;
     }
 
     public Integer getActiveGene() {
         return genes.get(activeGeneNumber);
     }
 
-    public int getEnergyLeft() {
-        return energyLeft;
+    public ArrayList<Integer> getGenes () {
+        return genes;
     }
 
-    public void changeEnergy(int changeEnergy) {
-        this.energyLeft =  this.energyLeft + changeEnergy;
+    public void nextActiveGene () {
+        activeGeneNumber = (activeGeneNumber+1)%(genes.size());
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void changeEnergy (Integer newEnergy) {
+        this.energy =  energy + newEnergy;
     }
 
     public WorldDirection getFacedSide() {
@@ -52,16 +54,32 @@ public class Animal {
         return this.position.equals(position);
     }
 
-    public void move() {
+    public void moveAccordingToGene () {
         facedSide = facedSide.performNextNTimes (getActiveGene());
-        setPosition(getPosition().add(facedSide.toPosition()));
-        //as for now -> later check chance to go to that place
-        //right and left edges are possible to cross; upper and bottom edges change facedSite to opposite
-        activeGeneNumber=(activeGeneNumber+1)%NUMBEROFGENES;
+        setPosition(getPosition().add(facedSide.toPosition()));         //as for now -> later check possibility to go to that place
     }
 
-    public void eat() {
-        //checking for every plant whether there are animals there
-        //if eat then -> historian.increaseNumberOfEatenPlants();
+    public int getNumberOfChildren () {
+        return historian.getChildren().size();
+    }
+
+    public int getDateOfBirth () {
+        return historian.getBirth();
+    }
+
+    public void turnAround () {
+        facedSide = facedSide.performNextNTimes (4);
+    }
+
+    public int getDateOfDeath () {
+        return historian.getDeath();
+    }
+
+    public void die (int death) {
+        historian.die (death);
+    }
+
+    public Position newPotentialPosition () {
+        return position.add (facedSide.toPosition());
     }
 }

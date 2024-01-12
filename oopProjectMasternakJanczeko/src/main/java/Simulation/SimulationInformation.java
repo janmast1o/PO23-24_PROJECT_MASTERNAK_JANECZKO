@@ -9,7 +9,7 @@ public record SimulationInformation (
         int numberOfGenes,
         int minimalMutationChanges,
         int maximumMutationChanges,
-        boolean activeSubsitution
+        boolean activeSubstitution
 )
 {
 

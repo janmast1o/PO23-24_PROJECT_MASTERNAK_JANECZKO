@@ -24,7 +24,10 @@ public class SimulationInitializer {
             int startingEnergy,
             int numberOfGenes,
             int numberOfStartingAnimals,
-            int numberOfStartingPlants
+            int numberOfStartingPlants,
+            int minimalMutationChanges,
+            int maximumMutationChanges,
+            boolean activeSubstitution
     ) {
         information = new SimulationInformation (
                 plantNutritionalValue,
@@ -32,7 +35,10 @@ public class SimulationInitializer {
                 sufficientReproductionEnergy,
                 sufficientRepletionEnergy,
                 startingEnergy,
-                numberOfGenes
+                numberOfGenes,
+                minimalMutationChanges,
+                maximumMutationChanges,
+                activeSubstitution
         );
         WorldMap worldMap = new WorldMap (new Boundaries (new Position (0,0), new Position (height,width)) );
         LinkedList<Animal> startingAnimals = startingAnimals (height,width,numberOfStartingAnimals,worldMap);

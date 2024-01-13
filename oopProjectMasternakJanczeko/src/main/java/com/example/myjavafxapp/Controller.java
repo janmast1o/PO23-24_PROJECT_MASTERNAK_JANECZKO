@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 
 public class Controller {
+
     @FXML
     private Spinner<Integer> numberSpinner;
 
@@ -33,11 +34,9 @@ public class Controller {
     @FXML
     public void onButtonClick() {
         number.setVisible(true);
-        number.setText(Integer.toString((Integer) numberSpinner.getValue()));
+        number.setText("Entered column number: " + numberSpinner.getValue().toString());
         enterText.setVisible(false);
         numberSpinner.setVisible(false);
         acceptButton.setVisible(false);
-        //Animal animal = new Animal(0,new Position(0,0), new ArrayList<>(Arrays.asList(1,2,3,4)),7);
-        //WorldMap worldMap = new WorldMap(new Boundaries(new Position(0,0),new Position(n,1)));
     }
 }

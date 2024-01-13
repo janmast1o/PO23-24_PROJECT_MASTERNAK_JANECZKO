@@ -12,10 +12,9 @@
     <Insets bottom="120" left="220" right="220" top="250"/>
   </padding>
 
-  <Label fx:id="number"> </Label>
+  <Label fx:id="number" />
 
   <Label fx:id="enterText">Enter n using Spinner</Label>
   <Spinner fx:id="numberSpinner" max="20" editable="true" initialValue="2"/>
   <Button fx:id="acceptButton" text="Accept" onAction="#onButtonClick" />
-  <!--ProgressBar-->
 </VBox>

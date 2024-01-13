@@ -6,4 +6,9 @@ public record Boundaries (Position lowerLeft, Position upperRight) {
         return lowerLeft.precedes (position) && upperRight.follows (position);
     }
 
+    public int size () {
+        return lowerLeft.absXDifference(upperRight) * lowerLeft.absYDifference(upperRight);
+    }
+
+
 }

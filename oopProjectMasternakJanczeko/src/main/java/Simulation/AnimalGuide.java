@@ -1,25 +1,31 @@
 package Simulation;
 
-import model.Animal;
+import Animal.Animal;
 import model.Position;
+import model.WorldMap;
+
+import java.util.Iterator;
 
 public class AnimalGuide {
 
-    private Simulation simulation;
+    private WorldMap worldMap;
 
-    public AnimalGuide (Simulation simulation) {
-        this.simulation = simulation;
+    protected AnimalGuide (WorldMap worldMap) {
+        this.worldMap = worldMap;
     }
 
-    public void moveAnimal (Animal animal) {
-        if (simulation.getMap().getBoundaries().withinBoundaries(animal.newPotentialPosition()) ) {
-            Position previousPosition = animal.getPosition();
-            animal.moveAccordingToGene ();
-            simulation.getMap().removeAnimal (previousPosition, animal);
-            simulation.getMap().placeAnimal (animal);
+    protected void moveAnimals () {
+        for (Animal animal : worldMap.getAnimals()) {
+            if (!worldMap.withinBoundaries(animal.previewMovement())) {
+                animal.turnAround();
+            }
+            else {
+                Position previousPosition = animal.getPosition();
+                animal.move();
+                worldMap.moveAnimal(previousPosition,animal);
+            }
         }
-        else {
-            animal.turnAround();
-        }
+
     }
+
 }

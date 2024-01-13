@@ -1,77 +1,41 @@
 package Simulation;
 
-import model.*;
+import Animal.Animal;
+import model.WorldMap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Simulation implements Runnable {
 
-    private WorldMap map;
-
-    private LinkedList<Animal> animals;
-
     private int day;
 
-    private SimulationInformation information;
+    private WorldMap worldMap;
 
-    private SimulationDetails simulationDetails;
+    private LinkedList<Animal> deadAnimals;
+
+    private Gravedigger gravedigger;
 
     private AnimalGuide animalGuide;
 
-    private PlantManager plantManager;
+    private PlantConsumptionManager plantConsumptionManager;
 
-    private ReproductionManager reproductionManager;
-
-    public Simulation (WorldMap map, LinkedList<Animal> startAnimals, SimulationInformation information) {
-        this.map = map;
-        this.day = 0;
-        this.animals = startAnimals;
-        this.information = information;
-        simulationDetails = new SimulationDetails (this);
-        animalGuide = new AnimalGuide (this);
-        plantManager = new PlantManager (this);
-        reproductionManager = new ReproductionManager (this);
-    }
-
-    public WorldMap getMap() {
-        return map;
-    }
-
-    public int getDay () {
-        return day;
-    }
-
-    public LinkedList<Animal> getAnimals() {
-        return animals;
-    }
-
-    public SimulationInformation getInformation() {
-        return information;
-    }
-
-    public SimulationDetails getSimulationDetails () {
-        return simulationDetails;
-    }
-
-    public void addAnimalToList (Animal animal) {
-        animals.add (animal);
+    public Simulation (WorldMap worldMap) {
+        day = 1;
+        deadAnimals = new LinkedList<>();
+        this.worldMap = worldMap;
+        gravedigger = new Gravedigger(worldMap);
+        animalGuide = new AnimalGuide(worldMap);
+        plantConsumptionManager = new PlantConsumptionManager(worldMap);
     }
 
     public void run () {
-        day++;
-        for (Animal animal : animals) {
-            if (animal.getDateOfDeath() == -1) {
-                animalGuide.moveAnimal (animal);
-            }
+        while (!worldMap.isMapEmpty()) {
+            gravedigger.removeDeadAnimals();
+            animalGuide.moveAnimals();
+            plantConsumptionManager.consumePlants(); //!
+            day++;
         }
-        for (Position position : map.getAnimals().keySet()) {
-            if (map.getPlants().containsKey(position)) {
 
-            }
-        }
     }
 
 }

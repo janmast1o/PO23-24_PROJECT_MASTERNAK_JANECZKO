@@ -2,11 +2,9 @@ package model;
 
 import animal.AnimalCluster;
 import animal.Animal;
+import presenter.MapChangeListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class WorldMap {
 
@@ -16,18 +14,29 @@ public class WorldMap {
 
     private HashMap<Position,AnimalCluster> animalClusters;
 
+    private Set<MapChangeListener> listeners;
+
     public WorldMap (Boundaries boundaries) {
         this.boundaries = boundaries;
         plants = new HashMap<>();
         animalClusters = new HashMap<>();
+        listeners = new HashSet<>();
     }
 
     public Boundaries getBoundaries() {
         return boundaries;
     }
 
-    public boolean withinBoundaries (Position position) {
-        return boundaries.withinBoundaries (position);
+    public boolean withinBoundariesX (Position position) {
+        return boundaries.withinBoundariesX (position);
+    }
+
+    public boolean withinBoundariesY (Position position) {
+        return boundaries.withinBoundariesY (position);
+    }
+
+    public Position transcendVerticalBorder (Position position) {
+        return boundaries.transcendVerticalBorder(position);
     }
 
     public int mapSize () {
@@ -62,24 +71,28 @@ public class WorldMap {
 
     public void growAPlant (Position position, Integer nutritionalValue) {
         plants.put (position,nutritionalValue);
+        changesOccurred(position);
     }
 
     public void removePlant (Position position) {
         plants.remove (position);
+        changesOccurred(position);
     }
 
     public void placeAnimal (Position position, Animal animal) {
-        if (!isAnimalAt(position)) {
+        if (!isOccupiedByAnimals(position)) {
             animalClusters.put(position,new AnimalCluster());
         }
         animalClusters.get(position).addAnimal(animal);
+        changesOccurred(position);
     }
 
     public void removeAnimal (Position position, Animal animal) {
         animalClusters.get(position).removeAnimal(animal);
-        if (!isAnimalAt(position)) {
+        if (!isOccupiedByAnimals(position)) {
             animalClusters.remove (position);
         }
+        changesOccurred(position);
     }
 
     public void moveAnimal (Position oldPosition, Position newPosition, Animal animal) {
@@ -87,21 +100,25 @@ public class WorldMap {
         placeAnimal(newPosition,animal);
     }
 
-    public boolean isPlantAt (Position position) {
+    public void turnAroundAnimal (Position position, Animal animal) {
+        changesOccurred(position);
+    }
+
+    public boolean isOccupiedByPlants(Position position) {
         return plants.containsKey(position);
     }
 
     public List<Position> getOccupiedByBothAnimalsAndPlants () {
         List<Position> occupiedByBothAnimalsAndPlants = new LinkedList<>();
         for (Position position : animalClusters.keySet()) {
-            if (isPlantAt(position)) {
+            if (isOccupiedByPlants(position)) {
                 occupiedByBothAnimalsAndPlants.add(position);
             }
         }
         return occupiedByBothAnimalsAndPlants;
     }
 
-    public boolean isAnimalAt (Position position) {
+    public boolean isOccupiedByAnimals(Position position) {
         return animalClusters.containsKey(position) && !animalClusters.get(position).isEmpty();
     }
 
@@ -126,5 +143,37 @@ public class WorldMap {
     public boolean isMapEmpty () {
         return animalClusters.size() == 0;
     }
+
+    public Position getRandomPositionOnTheMap () {
+        return boundaries.getRandomPositionWithinBoundaries();
+    }
+
+    public void addListener (MapChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener (MapChangeListener listener) {
+        listeners.remove(listener);
+    }
+
+    private void changesOccurred (Position position) {
+        for (MapChangeListener listener : listeners) {
+            listener.mapChanged(this,position);
+        }
+    }
+
+    public String objectAtToString (Position position) {
+        if (isOccupiedByAnimals(position)) {
+            return getTopAnimalAt(position).toString();
+        }
+        else if (isOccupiedByPlants(position)) {
+            return "*";
+        }
+        else {
+            return "";
+        }
+    }
+
+
 
 }

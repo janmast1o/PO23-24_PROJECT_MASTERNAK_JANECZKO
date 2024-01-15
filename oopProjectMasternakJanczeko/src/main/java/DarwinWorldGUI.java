@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import presenter.DarwinAppLaunchWindow;
 
 public class DarwinWorldGUI {
 

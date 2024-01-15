@@ -80,6 +80,11 @@ public class Animal {
         energy--;
     }
 
+    public void teleport (Position newPosition) {
+        position = newPosition;
+        energy--;
+    }
+
     public void addChild (Animal child) {
         animalInformation.addChild (child);
     }

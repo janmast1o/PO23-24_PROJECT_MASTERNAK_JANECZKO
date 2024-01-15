@@ -6,16 +6,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-
-<?import javafx.scene.layout.HBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0"
-            fx:controller="presenter.LaunchWindow">
+            fx:controller="LaunchWindow">
 
     <center>
         <VBox spacing="8">
@@ -52,6 +46,12 @@
 
             <Label text="Please enter the max number of mutations below:"/>
             <TextField fx:id="maxNumberOfMutations" text=""/>
+
+            <Label text="Please enter the span of the equator below:"/>
+            <TextField fx:id="equatorSpan" text=""/>
+
+            <Label text="Please enter the number of plants to be grown each day below:"/>
+            <TextField fx:id="numberOfPlantsGrownPerDay" text=""/>
 
             <Label text="Please specify the simulation variant:"/>
 

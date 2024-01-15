@@ -1,6 +1,11 @@
 plugins {
+    id 'application'
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+application {
+    getMainClass().set('agh.ics.oop.World')
 }
 
 group 'org.example'
@@ -8,14 +13,17 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-
     javafx {
         version = "17"
         modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media', 'javafx.swing', 'javafx.web']
     }
-
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'

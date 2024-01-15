@@ -5,24 +5,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import simulation.Simulation;
 
 import java.io.IOException;
 
-public class DarwinAppLaunchWindow extends Application {
+public class SimulationApp extends Application {
 
     public void start (Stage primaryStage) throws IOException {
+        primaryStage.show();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("launch.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
         BorderPane viewRoot = loader.load();
-        DarwinAppLaunchWindow darwinAppLaunchWindow = loader.getController();
+        UIMapListener uiMapListener = loader.getController();
         configureStage(primaryStage,viewRoot);
     }
 
     private void configureStage (Stage primaryStage, BorderPane viewRoot) {
         var scene = new Scene(viewRoot);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Launch window");
+        primaryStage.setTitle("Simulation app");
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
     }
+
 }

@@ -1,0 +1,29 @@
+#maintitle {
+    -fx-font-size: 25;
+    -fx-font-family: "Inter";
+}
+
+.label {
+    -fx-font-size: 17;
+    -fx-font-family: "Times New Roman";
+}
+
+.spinner {
+    -fx-pref-width: 71;
+    -fx-border-radius: 20;
+}
+
+.combo-box {
+    -fx-pref-width: 152;
+    -fx-border-radius: 20;
+    -fx-cursor: hand;
+}
+
+.button {
+    -fx-pref-widt: 50;
+    -fx-pref-height: 30;
+    -fx-font-size: 20;
+    -fx-font-family: "Times New Roman";
+    -fx-border-radius: 20;
+    -fx-cursor: hand;
+}

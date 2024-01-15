@@ -1,8 +1,6 @@
 package simulation;
-
 import model.WorldMap;
 import util.FisherYatesShuffle;
-
 import java.util.ArrayList;
 import java.util.Random;
 

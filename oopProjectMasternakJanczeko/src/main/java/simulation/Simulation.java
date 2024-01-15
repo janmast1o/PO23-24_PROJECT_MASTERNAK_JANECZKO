@@ -1,8 +1,6 @@
 package simulation;
-
 import animal.Animal;
 import model.WorldMap;
-
 import java.util.LinkedList;
 
 public class Simulation implements Runnable {
@@ -13,7 +11,7 @@ public class Simulation implements Runnable {
 
     private LinkedList<Animal> deadAnimals;
 
-    private Gravedigger gravedigger;
+    private GraveDigger gravedigger;
 
     private AnimalGuide animalGuide;
 
@@ -31,12 +29,12 @@ public class Simulation implements Runnable {
         this.worldMap = worldMap;
         this.simulationRules = simulationRules;
 
-        gravedigger = new Gravedigger(worldMap);
+        gravedigger = new GraveDigger(worldMap);
         animalGuide = new AnimalGuide(worldMap);
         plantConsumptionManager = new PlantConsumptionManager(worldMap);
 
         if (mutationMode.equals("default")) {
-            reproductionManager = new DeafultReproductionManager(worldMap);
+            reproductionManager = new DefaultReproductionManager(worldMap);
         }
         else {
             reproductionManager = new AlternativeReproductionManager(worldMap);

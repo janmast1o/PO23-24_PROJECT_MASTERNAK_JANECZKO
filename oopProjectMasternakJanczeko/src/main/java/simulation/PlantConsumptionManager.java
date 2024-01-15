@@ -1,5 +1,4 @@
 package simulation;
-
 import model.Position;
 import model.WorldMap;
 
@@ -18,5 +17,4 @@ public class PlantConsumptionManager {
             worldMap.removePlant(position);
         }
     }
-
 }

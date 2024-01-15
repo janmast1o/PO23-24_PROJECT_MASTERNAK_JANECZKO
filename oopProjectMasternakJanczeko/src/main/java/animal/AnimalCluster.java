@@ -1,5 +1,4 @@
 package animal;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -47,7 +46,5 @@ public class AnimalCluster {
     public String toString () {
         return getTopAnimal().toString();
     }
-
-
 
 }

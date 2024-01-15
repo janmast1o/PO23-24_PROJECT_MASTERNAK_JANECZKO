@@ -1,5 +1,4 @@
 package presenter;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -8,7 +7,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Position;
 import model.WorldMap;
-
 import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.TRANSPARENT;
 
@@ -51,7 +49,11 @@ public class UIMapListener implements MapChangeListener{
                 GridPane.setColumnIndex(cellPane,j);
 
                 mapGrid.getChildren().add(cellPane);
-        Thread.sleep(400);
+                try {
+                    Thread.sleep(400);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

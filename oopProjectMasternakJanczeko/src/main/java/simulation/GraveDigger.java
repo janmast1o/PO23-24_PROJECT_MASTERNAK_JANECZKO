@@ -1,13 +1,12 @@
 package simulation;
-
 import animal.Animal;
 import model.WorldMap;
 
-public class Gravedigger {
+public class GraveDigger {
 
     private WorldMap worldMap;
 
-    protected Gravedigger (WorldMap worldMap) {
+    protected GraveDigger(WorldMap worldMap) {
         this.worldMap = worldMap;
     }
 
@@ -19,5 +18,4 @@ public class Gravedigger {
         }
 
     }
-
 }

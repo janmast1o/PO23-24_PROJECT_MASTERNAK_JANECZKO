@@ -1,5 +1,4 @@
 package animal;
-
 import java.util.HashSet;
 
 public class AnimalInformation {

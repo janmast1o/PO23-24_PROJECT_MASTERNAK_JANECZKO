@@ -1,10 +1,8 @@
 package simulation;
-
 import model.Position;
 import model.WorldMap;
 import util.FisherYatesShuffle;
 import util.PairOfLists;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,5 +28,4 @@ public abstract class PlantGrowthManager {
             worldMap.growAPlant(lists.secondList().get(i), nutritionalValue);
         }
     }
-
 }

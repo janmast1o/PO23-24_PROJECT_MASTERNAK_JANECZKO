@@ -6,5 +6,4 @@ public class DarwinWorldGUI {
         Application.launch(DarwinAppLaunchWindow.class, args);
     }
 
-
 }

@@ -1,8 +1,6 @@
 package animal;
-
 import model.Position;
 import model.WorldDirection;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -27,7 +25,6 @@ public class Animal {
         this.direction = WorldDirection.randomDirection();
         this.energy = energy;
         this.animalInformation = new AnimalInformation ();
-
         Random random = new Random ();
         this.activeGene = random.nextInt(0,genome.size());
     }
@@ -66,12 +63,12 @@ public class Animal {
 
     public Position previewMovement () {
         WorldDirection newDirection = direction.performNextNTimes(genome.get(activeGene));
-        return position.addPostition (newDirection.toVector());
+        return position.addPosition(newDirection.toVector());
     }
 
     public void move () {
         direction = direction.performNextNTimes(genome.get(activeGene));
-        position = position.addPostition (direction.toVector());
+        position = position.addPosition(direction.toVector());
         energy--;
     }
 

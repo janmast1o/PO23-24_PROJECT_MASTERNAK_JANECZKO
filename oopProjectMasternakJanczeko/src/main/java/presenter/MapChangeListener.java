@@ -1,5 +1,4 @@
 package presenter;
-
 import model.Position;
 import model.WorldMap;
 

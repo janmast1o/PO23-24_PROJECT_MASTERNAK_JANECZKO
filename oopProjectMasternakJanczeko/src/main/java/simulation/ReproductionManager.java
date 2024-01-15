@@ -1,9 +1,7 @@
 package simulation;
-
 import animal.Animal;
 import model.Position;
 import model.WorldMap;
-
 import java.util.ArrayList;
 import java.util.Random;
 

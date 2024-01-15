@@ -23,7 +23,7 @@ class PositionTest {
 
             Position firstPosition = new Position (a,b);
             Position secondPosition = new Position (c,d);
-            Position resultPosition = firstPosition.addPostition(secondPosition);
+            Position resultPosition = firstPosition.addPosition(secondPosition);
 
             allCorrect = allCorrect && resultPosition.x() == a+c && resultPosition.y() == b+d;
 

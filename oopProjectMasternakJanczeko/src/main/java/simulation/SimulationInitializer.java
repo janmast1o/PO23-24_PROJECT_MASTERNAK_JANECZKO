@@ -1,12 +1,9 @@
 package simulation;
-
 import animal.Animal;
-import javafx.geometry.Pos;
 import model.Boundaries;
 import model.Position;
 import model.WorldMap;
 import util.FisherYatesShuffle;
-
 import java.util.ArrayList;
 import java.util.Random;
 

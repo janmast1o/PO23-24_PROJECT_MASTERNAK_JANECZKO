@@ -2,7 +2,7 @@ package model;
 
 public record Position (int x, int y) {
 
-    public Position addPostition (Position other) {
+    public Position addPosition(Position other) {
         return new Position (this.x+other.x, this.y+other.y);
     }
 

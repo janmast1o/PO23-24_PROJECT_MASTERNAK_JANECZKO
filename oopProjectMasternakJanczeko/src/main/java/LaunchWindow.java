@@ -1,8 +1,6 @@
 import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.w3c.dom.Text;
 import presenter.SimulationApp;
 import simulation.Simulation;
 import simulation.SimulationInitializer;

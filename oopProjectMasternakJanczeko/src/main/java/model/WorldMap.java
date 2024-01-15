@@ -1,9 +1,7 @@
 package model;
-
 import animal.AnimalCluster;
 import animal.Animal;
 import presenter.MapChangeListener;
-
 import java.util.*;
 
 public class WorldMap {
@@ -173,7 +171,5 @@ public class WorldMap {
             return "";
         }
     }
-
-
 
 }

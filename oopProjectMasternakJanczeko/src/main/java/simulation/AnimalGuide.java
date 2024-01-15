@@ -1,5 +1,4 @@
 package simulation;
-
 import animal.Animal;
 import model.Position;
 import model.WorldMap;

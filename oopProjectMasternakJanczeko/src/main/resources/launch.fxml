@@ -79,9 +79,9 @@
 
             <Label text="Please specify the simulation variant:"/>
 
-            <HBox spacing="6">
-                <RadioButton/>
-            </HBox>
+<!--            <HBox spacing="6">-->
+<!--                <RadioButton/>-->
+<!--            </HBox>-->
 
             <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
 

@@ -47,7 +47,6 @@ public class LaunchWindow {
     @FXML
     TextField numberOfPlantsGrownPerDay;
 
-
     private int getInput (TextField field) {
         int parsed = 0;
         try {

@@ -9,12 +9,12 @@ import java.io.IOException;
 public class DarwinAppLaunchWindow extends Application {
 
     public void start (Stage primaryStage) throws IOException {
-        primaryStage.show();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("launch.fxml"));
         BorderPane viewRoot = loader.load();
-        DarwinAppLaunchWindow darwinAppLaunchWindow = loader.getController();
+        LaunchWindow darwinAppLaunchWindow = loader.getController();
         configureStage(primaryStage,viewRoot);
+        primaryStage.show();
     }
 
     private void configureStage (Stage primaryStage, BorderPane viewRoot) {

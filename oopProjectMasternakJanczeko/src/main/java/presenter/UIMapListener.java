@@ -51,6 +51,7 @@ public class UIMapListener implements MapChangeListener{
                 GridPane.setColumnIndex(cellPane,j);
 
                 mapGrid.getChildren().add(cellPane);
+        Thread.sleep(400);
             }
         }
     }

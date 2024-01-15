@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0"
@@ -14,44 +15,71 @@
     <center>
         <VBox spacing="8">
 
-            <Label text="Please enter map width below:"/>
-            <TextField fx:id="mapWidth" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter map width:"/>
+                <TextField fx:id="mapWidth" text=""/>
+            </HBox>
 
-            <Label text="Please enter map height below:"/>
-            <TextField fx:id="mapHeight" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter map height:"/>
+                <TextField fx:id="mapHeight" text=""/>
+            </HBox>
 
-            <Label text="Please enter initial number of plants below:"/>
-            <TextField fx:id="initialNumberOfPlants" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter initial number of plants:"/>
+                <TextField fx:id="initialNumberOfPlants" text=""/>
+            </HBox>
 
-            <Label text="Please enter initial number of animals below:"/>
-            <TextField fx:id="initialNumberOfAnimals" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter initial number of animals:"/>
+                <TextField fx:id="initialNumberOfAnimals" text=""/>
+            </HBox>
 
-            <Label text="Please enter the starting energy of those animals below:"/>
-            <TextField fx:id="startingEnergy" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter the starting energy of those animals:"/>
+                <TextField fx:id="startingEnergy" text=""/>
+            </HBox>
 
-            <Label text="Please enter the nutritional value of grown plants below:"/>
-            <TextField fx:id="plantsNutritionalValue" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter the nutritional value of grown plants:"/>
+                <TextField fx:id="plantsNutritionalValue" text=""/>
+            </HBox>
 
-            <Label text="Please enter sufficient reproduction energy below:"/>
-            <TextField fx:id="sufficientReproductionEnergy" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter sufficient reproduction energy:"/>
+                <TextField fx:id="sufficientReproductionEnergy" text=""/>
+            </HBox>
 
-            <Label text="Please enter the amount of energy lost during reproductions"/>
-            <TextField fx:id="energyLostAfterReproduction" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter the amount of energy lost during reproduction:"/>
+                <TextField fx:id="energyLostAfterReproduction" text=""/>
 
-            <Label text="Please enter the length of the genome"/>
-            <TextField fx:id="lengthOfTheGenome" text=""/>
+            </HBox>
 
-            <Label text="Please enter the min number of mutations below:"/>
-            <TextField fx:id="minNumberOfMutations" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter the length of the genome:"/>
+                <TextField fx:id="lengthOfTheGenome" text=""/>
+            </HBox>
 
-            <Label text="Please enter the max number of mutations below:"/>
-            <TextField fx:id="maxNumberOfMutations" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter the min number of mutations:"/>
+                <TextField fx:id="minNumberOfMutations" text=""/>
+            </HBox>
 
-            <Label text="Please enter the span of the equator below:"/>
-            <TextField fx:id="equatorSpan" text=""/>
+            <HBox spacing="5">
+               <Label text="Please enter the max number of mutations:"/>
+                <TextField fx:id="maxNumberOfMutations" text=""/>
+            </HBox>
 
-            <Label text="Please enter the number of plants to be grown each day below:"/>
-            <TextField fx:id="numberOfPlantsGrownPerDay" text=""/>
+            <HBox spacing="5">
+                <Label text="Please enter the span of the equator below:"/>
+                <TextField fx:id="equatorSpan" text=""/>
+            </HBox>
+
+            <HBox spacing="5">
+                <Label text="Please enter the number of plants to be grown each day:"/>
+                <TextField fx:id="numberOfPlantsGrownPerDay" text=""/>
+            </HBox>
 
             <Label text="Please specify the simulation variant:"/>
 
@@ -65,7 +93,7 @@
             <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
 
 
-        </VBox>>
+        </VBox>
 
     </center>
 

@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.w3c.dom.Text;
+import presenter.SimulationApp;
 import simulation.Simulation;
 import simulation.SimulationInitializer;
 import util.Parser;
@@ -78,7 +79,7 @@ public class LaunchWindow {
         );
 
         Simulation simulation = simulationInitializer.initializeSimulation();
-        //Application.launch(SimulationApp.class);
+        Application.launch(SimulationApp.class);
 
     }
 

@@ -1,8 +1,9 @@
 package model;
 
-import Animal.AnimalCluster;
-import Animal.Animal;
+import animal.AnimalCluster;
+import animal.Animal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,15 +14,12 @@ public class WorldMap {
 
     private HashMap<Position,Integer> plants;
 
-    private HashMap<Position, AnimalCluster> animalsClusters;
-
-    private List<Animal> animals;
-
+    private HashMap<Position,AnimalCluster> animalClusters;
 
     public WorldMap (Boundaries boundaries) {
         this.boundaries = boundaries;
         plants = new HashMap<>();
-        animalsClusters = new HashMap<>();
+        animalClusters = new HashMap<>();
     }
 
     public Boundaries getBoundaries() {
@@ -37,15 +35,29 @@ public class WorldMap {
     }
 
     public int getNumberOfUnoccupiedPositions () {
-        return mapSize()- animalsClusters.size();
+        return mapSize()- animalClusters.size();
     }
 
     public HashMap<Position, Integer> getPlants() {
         return plants;
     }
 
-    public List<Animal> getAnimals() {
+    public List<Animal> getAnimalList() {
+        List<Animal> animals = new LinkedList<>();
+        for (AnimalCluster animalCluster : animalClusters.values()) {
+            animals.addAll ((List) animalCluster);
+        }
         return animals;
+    }
+
+    public ArrayList<Position> getFieldsWithNoPlants () {
+        ArrayList<Position> positionsWithNoPlants = new ArrayList<>();
+        for (Position position : boundaries.getAllFieldsWithinBoundaries()) {
+            if (!plants.containsKey(position)) {
+                positionsWithNoPlants.add(position);
+            }
+        }
+        return positionsWithNoPlants;
     }
 
     public void growAPlant (Position position, Integer nutritionalValue) {
@@ -56,20 +68,23 @@ public class WorldMap {
         plants.remove (position);
     }
 
-    public void placeAnimal () {
-        ;
+    public void placeAnimal (Position position, Animal animal) {
+        if (!isAnimalAt(position)) {
+            animalClusters.put(position,new AnimalCluster());
+        }
+        animalClusters.get(position).addAnimal(animal);
     }
 
-    public void removeAnimal () {
-        ;
+    public void removeAnimal (Position position, Animal animal) {
+        animalClusters.get(position).removeAnimal(animal);
+        if (!isAnimalAt(position)) {
+            animalClusters.remove (position);
+        }
     }
 
-    public void moveAnimal () {
-        ;
-    }
-
-    public boolean isAnimalAt (Position position) {
-        return animalsClusters.containsKey(position);
+    public void moveAnimal (Position oldPosition, Position newPosition, Animal animal) {
+        removeAnimal(oldPosition,animal);
+        placeAnimal(newPosition,animal);
     }
 
     public boolean isPlantAt (Position position) {
@@ -78,7 +93,7 @@ public class WorldMap {
 
     public List<Position> getOccupiedByBothAnimalsAndPlants () {
         List<Position> occupiedByBothAnimalsAndPlants = new LinkedList<>();
-        for (Position position : animalsClusters.keySet()) {
+        for (Position position : animalClusters.keySet()) {
             if (isPlantAt(position)) {
                 occupiedByBothAnimalsAndPlants.add(position);
             }
@@ -86,22 +101,22 @@ public class WorldMap {
         return occupiedByBothAnimalsAndPlants;
     }
 
-    public AnimalCluster animalsAt (Position position) {
-        return animalsClusters.get(position);
+    public boolean isAnimalAt (Position position) {
+        return animalClusters.containsKey(position) && !animalClusters.get(position).isEmpty();
     }
 
     public Animal getTopAnimalAt (Position position) {
-        return animalsClusters.get(position).getTopAnimal();
+        return animalClusters.get(position).getTopAnimal();
     }
 
     public Animal getSecondToTheTopAnimalAt (Position position) {
-        return animalsClusters.get(position).getSecondToTheTopAnimal();
+        return animalClusters.get(position).getSecondToTheTopAnimal();
     }
 
-    public List<Position> getClustersOfTwoOrMoreAnimals () {
+    public List<Position> getPositionsOfBigClusters () {
         List<Position> positions = new LinkedList<>();
-        for (Position position : animalsClusters.keySet()) {
-            if (animalsClusters.get(position).areThereTwoAnimalsInCluster()) {
+        for (Position position : animalClusters.keySet()) {
+            if (animalClusters.get(position).areThereTwoAnimalsInCluster()) {
                 positions.add(position);
             }
         }
@@ -109,7 +124,7 @@ public class WorldMap {
     }
 
     public boolean isMapEmpty () {
-        return animals.size() == 0;
+        return animalClusters.size() == 0;
     }
 
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+
+<?import javafx.scene.layout.HBox?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            minHeight="550.0" minWidth="850.0"
+            fx:controller="presenter.LaunchWindow">
+
+    <center>
+        <VBox spacing="8">
+
+            <Label text="Please enter map width below:"/>
+            <TextField fx:id="mapWidth" text=""/>
+
+            <Label text="Please enter map height below:"/>
+            <TextField fx:id="mapHeight" text=""/>
+
+            <Label text="Please enter initial number of plants below:"/>
+            <TextField fx:id="initialNumberOfPlants" text=""/>
+
+            <Label text="Please enter initial number of animals below:"/>
+            <TextField fx:id="initialNumberOfAnimals" text=""/>
+
+            <Label text="Please enter the starting energy of those animals below:"/>
+            <TextField fx:id="startingEnergy" text=""/>
+
+            <Label text="Please enter the nutritional value of grown plants below:"/>
+            <TextField fx:id="plantsNutritionalValue" text=""/>
+
+            <Label text="Please enter sufficient reproduction energy below:"/>
+            <TextField fx:id="sufficientReproductionEnergy" text=""/>
+
+            <Label text="Please enter the amount of energy lost during reproductions"/>
+            <TextField fx:id="energyLostAfterReproduction" text=""/>
+
+            <Label text="Please enter the length of the genome"/>
+            <TextField fx:id="lengthOfTheGenome" text=""/>
+
+            <Label text="Please enter the min number of mutations below:"/>
+            <TextField fx:id="minNumberOfMutations" text=""/>
+
+            <Label text="Please enter the max number of mutations below:"/>
+            <TextField fx:id="maxNumberOfMutations" text=""/>
+
+            <Label text="Please specify the simulation variant:"/>
+
+<!--            <HBox spacing="6">-->
+<!--                <ToggleGroup fx:id="mutationVariant">-->
+<!--                    <RadioButton text="default" fx:id="mutationDefaultButton"/>-->
+<!--                    <RadioButton text="alternative" fx:id="mutationAlternativeButton"/>-->
+<!--                </ToggleGroup>-->
+<!--            </HBox>-->
+
+            <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
+
+
+        </VBox>>
+
+    </center>
+
+</BorderPane>
+

@@ -1,11 +1,10 @@
-package Animal;
+package animal;
 
-import model.Date;
 import model.Position;
 import model.WorldDirection;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.HashSet;
 import java.util.Random;
 
 public class Animal {
@@ -14,7 +13,7 @@ public class Animal {
 
     private WorldDirection direction;
 
-    private ArrayList<Integer> genom;
+    private ArrayList<Integer> genome;
 
     private int activeGene;
 
@@ -22,15 +21,15 @@ public class Animal {
 
     private AnimalInformation animalInformation;
 
-    public Animal (int birth, Position postition, ArrayList<Integer> genom, int energy) {
+    public Animal (Position postition, ArrayList<Integer> genome, int energy) {
         this.position = postition;
-        this.genom = genom;
+        this.genome = genome;
         this.direction = WorldDirection.randomDirection();
         this.energy = energy;
-        this.animalInformation = new AnimalInformation (birth);
+        this.animalInformation = new AnimalInformation ();
 
         Random random = new Random ();
-        this.activeGene = random.nextInt(0,genom.size());
+        this.activeGene = random.nextInt(0,genome.size());
     }
 
     public Position getPosition () {
@@ -41,21 +40,43 @@ public class Animal {
         return energy;
     }
 
+    public Integer getGeneAtIndex (int i) {
+        return genome.get(i);
+    }
+
+    public int getGenomeSize () {
+        return genome.size();
+    }
+
+    public int getLifeTime () {
+        return animalInformation.getLifetime();
+    }
+
+    public WorldDirection getDirection () {
+        return direction;
+    }
+
+    public HashSet<Animal> getChildren () {
+        return animalInformation.getChildren();
+    }
+
+    public void incrementActiveGene () {
+        activeGene = (activeGene+1)% genome.size();
+    }
+
     public Position previewMovement () {
-        WorldDirection newDirection = direction.performNextNTimes(genom.get(activeGene));
+        WorldDirection newDirection = direction.performNextNTimes(genome.get(activeGene));
         return position.addPostition (newDirection.toVector());
     }
 
     public void move () {
-        direction = direction.performNextNTimes(genom.get(activeGene));
+        direction = direction.performNextNTimes(genome.get(activeGene));
         position = position.addPostition (direction.toVector());
-        activeGene = (activeGene+1)%genom.size();
         energy--;
     }
 
     public void turnAround () {
         this.direction = direction.performNextNTimes(4);
-        activeGene = (activeGene+1)%genom.size();
         energy--;
     }
 
@@ -64,7 +85,7 @@ public class Animal {
     }
 
     public boolean isAlive () {
-        return animalInformation.isAlive();
+        return energy > 0;
     }
 
     public void registerPlantConsumption () {
@@ -79,18 +100,6 @@ public class Animal {
         return animalInformation.getNumberOfEatenPlants();
     }
 
-    public Date getBirth () {
-        return animalInformation.getBirth();
-    }
-
-    public Optional<Date> getDeath () {
-        return animalInformation.getDeath();
-    }
-
-    public void die (int dateDeath) {
-        animalInformation.die (dateDeath);
-    }
-
     public void replenishEnergy (int energy) {
         this.energy += energy;
     }
@@ -99,12 +108,17 @@ public class Animal {
         this.energy -= energy;
     }
 
-    public boolean isOutOfEnergy () {
-        return energy <= 0;
-    }
-
     public boolean hasSufficientEnergy (int sufficientEnergy) {
         return energy >= sufficientEnergy;
+    }
+
+    public void ageByADay () {
+        animalInformation.ageByADay();
+    }
+
+    @Override
+    public String toString () {
+        return direction.toString();
     }
 
 }

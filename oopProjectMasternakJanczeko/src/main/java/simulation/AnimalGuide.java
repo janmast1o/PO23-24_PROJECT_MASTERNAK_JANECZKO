@@ -1,10 +1,8 @@
-package Simulation;
+package simulation;
 
-import Animal.Animal;
+import animal.Animal;
 import model.Position;
 import model.WorldMap;
-
-import java.util.Iterator;
 
 public class AnimalGuide {
 
@@ -15,15 +13,16 @@ public class AnimalGuide {
     }
 
     protected void moveAnimals () {
-        for (Animal animal : worldMap.getAnimals()) {
+        for (Animal animal : worldMap.getAnimalList()) {
             if (!worldMap.withinBoundaries(animal.previewMovement())) {
                 animal.turnAround();
             }
             else {
                 Position previousPosition = animal.getPosition();
                 animal.move();
-                worldMap.moveAnimal(previousPosition,animal);
+                worldMap.moveAnimal(previousPosition, animal.getPosition(), animal);
             }
+            animal.incrementActiveGene();
         }
 
     }

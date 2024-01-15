@@ -1,4 +1,4 @@
-package Animal;
+package animal;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -8,9 +8,13 @@ public class AnimalCluster {
     private PriorityQueue<Animal> animals;
 
     public AnimalCluster () {
-        animals = new PriorityQueue<>(Comparator.comparing(Animal :: getEnergy).reversed().
-                                                 thenComparing(Animal :: getBirth).
+        animals = new PriorityQueue<>(Comparator.comparing(Animal :: getEnergy).
+                                                 thenComparing(Animal :: getLifeTime).
                                                  thenComparing(Animal :: getNumberOfChildren).reversed());
+    }
+
+    public PriorityQueue<Animal> getCluster () {
+        return animals;
     }
 
     public void addAnimal (Animal animal) {
@@ -38,6 +42,10 @@ public class AnimalCluster {
 
     public boolean isEmpty () {
         return animals.size() == 0;
+    }
+
+    public String toString () {
+        return getTopAnimal().toString();
     }
 
 

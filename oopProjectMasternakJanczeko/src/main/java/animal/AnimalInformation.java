@@ -1,35 +1,23 @@
-package Animal;
+package animal;
 
-import Animal.Animal;
-import model.Date;
-
-
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Optional;
 
 public class AnimalInformation {
 
-    private final Date birth;
-
-    private Date death;
+    private int lifetime;
 
     private int numberOfEatenPlants;
 
     private HashSet<Animal> children;
 
-    protected AnimalInformation (int birth) {
-        this.birth = new Date (birth);
+    protected AnimalInformation () {
+        lifetime = 0;
         numberOfEatenPlants = 0;
         children = new HashSet<>();
     }
 
-    protected Date getBirth () {
-        return birth;
-    }
-
-    protected Optional<Date> getDeath () {
-        return Optional.ofNullable(death);
+    protected int getLifetime () {
+        return lifetime;
     }
 
     protected int getNumberOfEatenPlants () {
@@ -52,12 +40,8 @@ public class AnimalInformation {
         return children.size();
     }
 
-    protected void die (int deathDate) {
-        death = new Date (deathDate);
-    }
-
-    protected boolean isAlive () {
-        return death == null;
+    protected void ageByADay () {
+        lifetime++;
     }
 
 }

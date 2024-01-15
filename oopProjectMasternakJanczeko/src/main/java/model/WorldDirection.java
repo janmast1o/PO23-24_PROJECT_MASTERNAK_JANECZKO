@@ -23,13 +23,13 @@ public enum WorldDirection {
     public WorldDirection performNextNTimes (int n) {
         WorldDirection direction = this;
         for (int i = 0; i < n; i++) {
-            direction = next ();
+            direction = direction.next ();
         }
         return direction;
     }
 
     public Position toVector () {
-        return switch(this) {
+        return switch (this) {
             case NORTH -> new Position (0,1);
             case NORTHEAST -> new Position (1,1);
             case EAST -> new Position (1,0);
@@ -45,6 +45,19 @@ public enum WorldDirection {
         Random random = new Random();
         WorldDirection[] directions = values();
         return directions[random.nextInt(0, directions.length)];
+    }
+
+    public String toString () {
+        return switch (this) {
+            case NORTH -> "N";
+            case NORTHEAST -> "NE";
+            case EAST -> "E";
+            case SOUTHEAST -> "SE";
+            case SOUTH -> "S";
+            case SOUTHWEST -> "SW";
+            case WEST -> "W";
+            case NORTHWEST -> "NW";
+        };
     }
 
 }

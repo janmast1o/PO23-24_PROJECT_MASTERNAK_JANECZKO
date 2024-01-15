@@ -1,4 +1,4 @@
-package Simulation;
+package simulation;
 
 import model.Position;
 import model.WorldMap;
@@ -14,6 +14,7 @@ public class PlantConsumptionManager {
     protected void consumePlants (int plantNutritionalValue) {
         for (Position position : worldMap.getOccupiedByBothAnimalsAndPlants()) {
             worldMap.getTopAnimalAt(position).replenishEnergy(plantNutritionalValue);
+            worldMap.getTopAnimalAt(position).registerPlantConsumption();
             worldMap.removePlant(position);
         }
     }

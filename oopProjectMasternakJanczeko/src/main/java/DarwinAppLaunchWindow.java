@@ -8,8 +8,7 @@ import java.io.IOException;
 public class DarwinAppLaunchWindow extends Application {
 
     public void start (Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("launch.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("launch.fxml"));
         BorderPane viewRoot = loader.load();
         LaunchWindow darwinAppLaunchWindow = loader.getController();
         configureStage(primaryStage,viewRoot);

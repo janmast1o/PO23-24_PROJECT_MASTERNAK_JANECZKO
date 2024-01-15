@@ -1,83 +1,98 @@
 import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
 import presenter.SimulationApp;
 import simulation.Simulation;
 import simulation.SimulationInitializer;
-import util.Parser;
 
 public class LaunchWindow {
 
     @FXML
-    TextField mapWidth;
+    Spinner<Integer> mapWidth;
 
     @FXML
-    TextField mapHeight;
+    Spinner<Integer> mapHeight;
 
     @FXML
-    TextField initialNumberOfPlants;
+    ComboBox<String> mapVariant;
 
     @FXML
-    TextField initialNumberOfAnimals;
+    Spinner<Integer> initialNumberOfPlants;
 
     @FXML
-    TextField startingEnergy;
+    Spinner<Integer> plantsNutritionalValue;
 
     @FXML
-    TextField plantsNutritionalValue;
+    Spinner<Integer> numberOfPlantsGrownPerDay;
 
     @FXML
-    TextField sufficientReproductionEnergy;
+    ComboBox<String> plantGrowthVariant;
 
     @FXML
-    TextField energyLostAfterReproduction;
+    Spinner<Integer> initialNumberOfAnimals;
 
     @FXML
-    TextField lengthOfTheGenome;
+    Spinner<Integer> startingEnergy;
 
     @FXML
-    TextField minNumberOfMutations;
+    Spinner<Integer> sufficientReproductionEnergy;
 
     @FXML
-    TextField maxNumberOfMutations;
+    Spinner<Integer> energyLostAfterReproduction;
 
     @FXML
-    TextField equatorSpan;
+    Spinner<Integer> minNumberOfMutations;
 
     @FXML
-    TextField numberOfPlantsGrownPerDay;
+    Spinner<Integer> maxNumberOfMutations;
 
-    private int getInput (TextField field) {
-        int parsed = 0;
-        try {
-            parsed = Parser.parse (field.getText().split(""));
-        }
-        catch (IllegalArgumentException exception) {
-            System.exit(1);
-        }
-        return parsed;
+    @FXML
+    ComboBox<String> mutationVariant;
+
+    @FXML
+    Spinner<Integer> lengthOfTheGenome;
+
+    @FXML
+    ComboBox<String> animalBehaviorVariant;
+
+    public int getSpinner(Spinner<Integer> spinner) {
+        return (int) spinner.getValue();
     }
 
-    public void onStartClicked () {
-        SimulationInitializer simulationInitializer = new SimulationInitializer (
-                getInput(mapWidth),
-                getInput(mapHeight),
-                getInput(initialNumberOfPlants),
-                getInput(initialNumberOfAnimals),
-                getInput(startingEnergy),
-                getInput(plantsNutritionalValue),
-                getInput(sufficientReproductionEnergy),
-                getInput(lengthOfTheGenome),
-                getInput(minNumberOfMutations),
-                getInput(maxNumberOfMutations),
-                getInput(energyLostAfterReproduction),
-                getInput(equatorSpan),
-                getInput(numberOfPlantsGrownPerDay)
+    public String getMutationMode() {
+        if (mutationVariant.toString().equals("Full randomness")) {
+            return "default";
+        }
+        return "not_default";
+    }
+
+    public String getPlantGrowthMode() {
+        if (plantGrowthVariant.toString().equals("Forested equator")) {
+            return "default";
+        }
+        return "not_default";
+    }
+
+    public void onStartClicked() {
+        SimulationInitializer simulationInitializer = new SimulationInitializer(
+                getSpinner(mapWidth),
+                getSpinner(mapHeight),
+                getSpinner(initialNumberOfPlants),
+                getSpinner(initialNumberOfAnimals),
+                getSpinner(startingEnergy),
+                getSpinner(plantsNutritionalValue),
+                getSpinner(sufficientReproductionEnergy),
+                getSpinner(lengthOfTheGenome),
+                getSpinner(minNumberOfMutations),
+                getSpinner(maxNumberOfMutations),
+                getSpinner(energyLostAfterReproduction),
+                (getSpinner(mapHeight) / 10),
+                getSpinner(numberOfPlantsGrownPerDay)
         );
 
-        Simulation simulation = simulationInitializer.initializeSimulation();
+        Simulation simulation = simulationInitializer.initializeSimulation(getMutationMode(), getPlantGrowthMode());   //gdzie uzywamy tego simulation?
         Application.launch(SimulationApp.class);
 
     }
-
 }

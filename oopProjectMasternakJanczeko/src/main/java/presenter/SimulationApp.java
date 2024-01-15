@@ -5,13 +5,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class SimulationApp extends Application {
 
     public void start (Stage primaryStage) throws IOException {
         primaryStage.show();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("simulation.fxml"));
         BorderPane viewRoot = loader.load();
         UIMapListener uiMapListener = loader.getController();
         configureStage(primaryStage,viewRoot);
@@ -19,6 +19,8 @@ public class SimulationApp extends Application {
 
     private void configureStage (Stage primaryStage, BorderPane viewRoot) {
         var scene = new Scene(viewRoot);
+        //!!!
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("simulation.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Simulation app");
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());

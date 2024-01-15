@@ -1,4 +1,5 @@
 package simulation;
+
 public record SimulationRules (int plantNutritionalValue,
                                int sufficientReproductionEnergy,
                                int energyLostAfterReproduction,

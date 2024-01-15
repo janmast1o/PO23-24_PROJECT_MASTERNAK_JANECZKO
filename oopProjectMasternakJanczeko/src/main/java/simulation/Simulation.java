@@ -44,7 +44,7 @@ public class Simulation implements Runnable {
             plantGrowthManager = new DefaultPlantGrowthManager(worldMap);
         }
         else {
-            plantGrowthManager = new DefaultPlantGrowthManager(worldMap); //to be changed
+            plantGrowthManager = new DefaultPlantGrowthManager(worldMap); //to be added
         }
 
     }
@@ -65,7 +65,7 @@ public class Simulation implements Runnable {
 
             plantGrowthManager.growPlants(simulationRules.numberOfNewPlantsPerDay(),
                                           simulationRules.plantNutritionalValue(),
-                                          simulationRules.equatorSpan()); //!
+                                          simulationRules.equatorSpan()); //!!!!!
 
             for (Animal animal : worldMap.getAnimalList()) {
                 animal.ageByADay();

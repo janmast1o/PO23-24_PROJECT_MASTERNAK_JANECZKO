@@ -12,19 +12,19 @@ public class DefaultPlantGrowthManager extends PlantGrowthManager {
     }
 
     @Override
-    protected PairOfLists seperatePrefferedAndUnpreffred (List<Position> fieldsWithNoPlants, int equatorSpan) {
-        ArrayList<Position> preffredFields = new ArrayList<>();
-        ArrayList<Position> unpreffredFields = new ArrayList<>();
+    protected PairOfLists seperatePrefferedAndUnpreffered (List<Position> fieldsWithNoPlants, int equatorSpan) {
+        ArrayList<Position> prefferedFields = new ArrayList<>();
+        ArrayList<Position> unprefferedFields = new ArrayList<>();
 
         for (Position position : fieldsWithNoPlants) {
             if (position.absYDifference (new Position (0,equatorSpan)) <= equatorSpan) {
-                preffredFields.add(position);
+                prefferedFields.add(position);
             }
             else {
-                unpreffredFields.add(position);
+                unprefferedFields.add(position);
             }
         }
 
-        return new PairOfLists (preffredFields,unpreffredFields);
+        return new PairOfLists (prefferedFields,unprefferedFields);
     }
 }

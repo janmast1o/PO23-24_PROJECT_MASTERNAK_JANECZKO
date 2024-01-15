@@ -1,91 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            minHeight="550.0" minWidth="850.0"
+            minHeight="600" minWidth="600"
             fx:controller="LaunchWindow">
+    <stylesheets>
+        <URL value="@launch.css"/>
+    </stylesheets>
+
+    <top>
+        <VBox spacing="8">
+            <Label id="maintitle">Please enter your simulation configuration:</Label>
+        </VBox>
+    </top>
 
     <center>
         <VBox spacing="8">
-
-            <HBox spacing="5">
-                <Label text="Please enter map width:"/>
-                <TextField fx:id="mapWidth" text=""/>
+            <HBox spacing="3">
+                <Label text="Map width:"/>
+                <Spinner fx:id="mapWidth" min="5" max="200" editable="true" initialValue="5"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter map height:"/>
-                <TextField fx:id="mapHeight" text=""/>
+            <HBox spacing="3">
+                <Label text="Map height:"/>
+                <Spinner fx:id="mapHeight" min="5" max="200" editable="true" initialValue="5"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter initial number of plants:"/>
-                <TextField fx:id="initialNumberOfPlants" text=""/>
+            <HBox spacing="3">
+                <Label text="Map variant:"/>
+                <ComboBox fx:id="mapVariant">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Globe"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter initial number of animals:"/>
-                <TextField fx:id="initialNumberOfAnimals" text=""/>
+            <HBox spacing="3">
+                <Label text="Initial number of plants:"/>
+                <Spinner fx:id="initialNumberOfPlants" min="1" max="8000" editable="true" initialValue="1"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter the starting energy of those animals:"/>
-                <TextField fx:id="startingEnergy" text=""/>
+            <HBox spacing="3">
+                <Label text="Nutritional value of grown plants:"/>
+                <Spinner fx:id="plantsNutritionalValue" min="3" max="30" editable="true" initialValue="3"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter the nutritional value of grown plants:"/>
-                <TextField fx:id="plantsNutritionalValue" text=""/>
+            <HBox spacing="3">
+                <Label text="Number of plants to be grown each day:"/>
+                <Spinner fx:id="numberOfPlantsGrownPerDay" min="2" max="800" editable="true" initialValue="2"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter sufficient reproduction energy:"/>
-                <TextField fx:id="sufficientReproductionEnergy" text=""/>
+            <HBox spacing="3">
+                <Label text="Plant growth variant:"/>
+                <ComboBox fx:id="plantGrowthVariant">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Forested equator"/>
+                            <String fx:value="Life-giving carcasses"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter the amount of energy lost during reproduction:"/>
-                <TextField fx:id="energyLostAfterReproduction" text=""/>
-
+            <HBox spacing="3">
+                <Label text="Initial number of animals:"/>
+                <Spinner fx:id="initialNumberOfAnimals" min="2" max="800" editable="true" initialValue="2"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter the length of the genome:"/>
-                <TextField fx:id="lengthOfTheGenome" text=""/>
+            <HBox spacing="3">
+                <Label text="Starting energy of animals:"/>
+                <Spinner fx:id="startingEnergy" min="3" max="100" editable="true" initialValue="3"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter the min number of mutations:"/>
-                <TextField fx:id="minNumberOfMutations" text=""/>
+            <HBox spacing="3">
+                <Label text="Sufficient reproduction energy:"/>
+                <Spinner fx:id="sufficientReproductionEnergy" min="5" max="50" editable="true" initialValue="5"/>
             </HBox>
 
-            <HBox spacing="5">
-               <Label text="Please enter the max number of mutations:"/>
-                <TextField fx:id="maxNumberOfMutations" text=""/>
+            <HBox spacing="3">
+                <Label text="Amount of energy lost during reproduction:"/>
+                <Spinner fx:id="energyLostAfterReproduction" min="3" max="100" editable="true" initialValue="3"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter the span of the equator below:"/>
-                <TextField fx:id="equatorSpan" text=""/>
+            <HBox spacing="3">
+                <Label text="Minimum number of mutations:"/>
+                <Spinner fx:id="minNumberOfMutations" min="0" max="20" editable="true" initialValue="0"/>
             </HBox>
 
-            <HBox spacing="5">
-                <Label text="Please enter the number of plants to be grown each day:"/>
-                <TextField fx:id="numberOfPlantsGrownPerDay" text=""/>
+            <HBox spacing="3">
+                <Label text="Maximum number of mutations:"/>
+                <Spinner fx:id="maxNumberOfMutations" min="0" max="256" editable="true" initialValue="0"/>
             </HBox>
 
-            <Label text="Please specify the simulation variant:"/>
+            <HBox spacing="3">
+                <Label text="Mutation variant:"/>
+                <ComboBox fx:id="mutationVariant">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Full randomness"/>
+                            <String fx:value="Substitution"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
 
-<!--            <HBox spacing="6">-->
-<!--                <RadioButton/>-->
-<!--            </HBox>-->
+            <HBox spacing="3">
+                <Label text="Length of the genome:"/>
+                <Spinner fx:id="lengthOfTheGenome" min="4" max="512" editable="true" initialValue="4"/>
+            </HBox>
 
-            <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
+            <HBox spacing="3">
+                <Label text="Animal behavior variant:"/>
+                <ComboBox fx:id="animalBehaviorVariant">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Full predestination"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
 
-
+            <HBox spacing="3">
+                <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
+            </HBox>
         </VBox>
 
     </center>

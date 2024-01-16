@@ -1,8 +1,6 @@
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import presenter.SimulationApp;
 import simulation.Simulation;
 import simulation.SimulationInitializer;
 
@@ -91,8 +89,19 @@ public class LaunchWindow {
                 getSpinner(numberOfPlantsGrownPerDay)
         );
 
-        Simulation simulation = simulationInitializer.initializeSimulation(getMutationMode(), getPlantGrowthMode());   //gdzie uzywamy tego simulation?
-        Application.launch(SimulationApp.class);
+        try {
 
+            Simulation simulation = simulationInitializer.initializeSimulation(getMutationMode(), getPlantGrowthMode());
+//            Thread thread = new Thread(simulation);
+//            thread.start();
+            //Application.launch(SimulationApp.class);
+            simulation.run();
+        }
+        catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+        finally {
+            System.out.println("closing simulation");
+        }
     }
 }

@@ -5,7 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+
 
 public class SimulationApp extends Application {
 
@@ -19,8 +21,8 @@ public class SimulationApp extends Application {
 
     private void configureStage (Stage primaryStage, BorderPane viewRoot) {
         var scene = new Scene(viewRoot);
-        //!!!
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("simulation.css")).toExternalForm());
+        URL url = Objects.requireNonNull(getClass().getResource("simulation.css"));
+        scene.getStylesheets().add(url.toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Simulation app");
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());

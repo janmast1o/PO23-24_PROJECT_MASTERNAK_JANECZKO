@@ -40,7 +40,7 @@ public class AnimalCluster {
     }
 
     public boolean isEmpty () {
-        return animals.size() == 0;
+        return animals.isEmpty();
     }
 
     public String toString () {

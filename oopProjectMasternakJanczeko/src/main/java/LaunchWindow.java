@@ -55,7 +55,7 @@ public class LaunchWindow {
     ComboBox<String> animalBehaviorVariant;
 
     public int getSpinner(Spinner<Integer> spinner) {
-        return (int) spinner.getValue();
+        return spinner.getValue();
     }
 
     public String getMutationMode() {
@@ -90,15 +90,14 @@ public class LaunchWindow {
         );
 
         try {
-
             Simulation simulation = simulationInitializer.initializeSimulation(getMutationMode(), getPlantGrowthMode());
-//            Thread thread = new Thread(simulation);
-//            thread.start();
+            //Thread thread = new Thread(simulation);
+            //thread.start();
             //Application.launch(SimulationApp.class);
             simulation.run();
         }
         catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            throw new RuntimeException(exception.getMessage());
         }
         finally {
             System.out.println("closing simulation");

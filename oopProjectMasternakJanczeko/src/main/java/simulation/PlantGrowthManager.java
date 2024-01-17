@@ -20,11 +20,11 @@ public abstract class PlantGrowthManager {
         ArrayList<Position> fieldsWithNoPlants = worldMap.getFieldsWithNoPlants();
         PairOfLists lists = seperatePrefferedAndUnpreffered(fieldsWithNoPlants,equatorSpan);
         //Preferred fields (80%)
-        for (int i : FisherYatesShuffle.shuffle(Math.min((int) 0.8*numberOfPlantsToGrow, lists.firstList().size()), lists.firstList().size())) {
+        for (int i : FisherYatesShuffle.shuffle((int) Math.min(0.8*numberOfPlantsToGrow, lists.firstList().size()), lists.firstList().size())) {
             worldMap.growAPlant(lists.firstList().get(i), nutritionalValue);
         }
         //Unpreferred fields (20%)
-        for (int i : FisherYatesShuffle.shuffle(Math.min((int) 0.2*numberOfPlantsToGrow, lists.secondList().size()), lists.secondList().size())) {
+        for (int i : FisherYatesShuffle.shuffle((int) Math.min(0.2*numberOfPlantsToGrow, lists.secondList().size()), lists.secondList().size())) {
             worldMap.growAPlant(lists.secondList().get(i), nutritionalValue);
         }
     }

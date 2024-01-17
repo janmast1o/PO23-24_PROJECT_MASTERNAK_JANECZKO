@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="632.5" minWidth="977.5"
             fx:controller="presenter.UIMapListener">
 
+    <left>
+        <Label>Tu beda statystyki biezace</Label>
+    </left>
+
+
     <center>
-
         <GridPane fx:id="mapGrid" alignment="CENTER" gridLinesVisible="true">
-        </GridPane>
 
+            <VBox>
+                <Label>KKKKKKKKK5</Label>
+                <Label>KKKKKKKKK1</Label>
+                <Label>KKKKKKKKK2</Label>
+                <Label>KKKKKKKKK3</Label>
+                <Label>KKKKKKKKK4</Label>
+            </VBox>
+
+        </GridPane>
     </center>
 
 </BorderPane>

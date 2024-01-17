@@ -3,7 +3,6 @@ import animal.Animal;
 import model.Position;
 import model.WorldMap;
 
-
 public class AnimalGuide {
 
     private WorldMap worldMap;
@@ -13,9 +12,7 @@ public class AnimalGuide {
     }
 
     protected void moveAnimals () {
-        System.out.println("moveAnimals elo");
         for (Animal animal : worldMap.getAnimalList()) {
-            System.out.println("moveAnimals started" );
             if (!worldMap.withinBoundariesY(animal.previewMovement())) {
                 animal.turnAround();
             }

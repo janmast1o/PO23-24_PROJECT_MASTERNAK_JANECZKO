@@ -22,9 +22,8 @@ public abstract class ReproductionManager {
         int genomeLength = firstAnimal.getGenomeSize();
         ArrayList<Integer> childGenes = new ArrayList<>(genomeLength);
         boolean fromTheLeft = leftRightDecider.nextBoolean();
-
+        int splitPoint = (int) ((genomeLength * firstAnimal.getEnergy())/(firstAnimal.getEnergy() + secondAnimal.getEnergy()));
         if (fromTheLeft) {
-            int splitPoint = (int) ((genomeLength * firstAnimal.getEnergy())/(firstAnimal.getEnergy() + secondAnimal.getEnergy()));
             for (int i = 0; i < splitPoint; i++) {
                 childGenes.add(firstAnimal.getGeneAtIndex(i));
             }
@@ -35,7 +34,6 @@ public abstract class ReproductionManager {
         }
 
         else {
-            int splitPoint = (int) ((genomeLength * secondAnimal.getEnergy())/(firstAnimal.getEnergy() + secondAnimal.getEnergy()));
             for (int i = 0; i < splitPoint; i++) {
                 childGenes.add(secondAnimal.getGeneAtIndex(i));
             }
@@ -49,13 +47,13 @@ public abstract class ReproductionManager {
         return childGenes;
     }
 
-    public void reproduceAnimals (int sufficientEnergy, int energyLostAfterReproduction, int minNumberOfMutations, int maxNumberOfMutatiions) {
+    public void reproduceAnimals (int sufficientEnergy, int energyLostAfterReproduction, int minNumberOfMutations, int maxNumberOfMutations) {
         for (Position position : worldMap.getPositionsOfBigClusters()) {
             Animal firstAnimal = worldMap.getTopAnimalAt(position);
             Animal secondAnimal = worldMap.getSecondToTheTopAnimalAt(position);
 
             if (secondAnimal.hasSufficientEnergy(sufficientEnergy)) {
-                ArrayList<Integer> newGenome = createANewGenome (firstAnimal, secondAnimal, minNumberOfMutations, maxNumberOfMutatiions);
+                ArrayList<Integer> newGenome = createANewGenome (firstAnimal, secondAnimal, minNumberOfMutations, maxNumberOfMutations);
                 firstAnimal.drainEnergy(energyLostAfterReproduction);
                 secondAnimal.drainEnergy(energyLostAfterReproduction);
                 Animal child = new Animal (position,newGenome,2*energyLostAfterReproduction);

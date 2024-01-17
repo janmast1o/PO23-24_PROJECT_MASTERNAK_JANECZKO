@@ -11,9 +11,7 @@ public class GraveDigger {
     }
 
     protected void removeDeadAnimals (int day) {
-        System.out.println("removeDeadAnimals elo");
         for (Animal animal : worldMap.getAnimalList()) {
-            System.out.println("removeDeadAnimals started");
             if (!animal.isAlive()) {
                 worldMap.removeAnimal(animal.getPosition(), animal);
             }

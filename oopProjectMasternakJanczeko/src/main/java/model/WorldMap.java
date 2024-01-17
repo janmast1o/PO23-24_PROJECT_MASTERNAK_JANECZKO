@@ -50,16 +50,11 @@ public class WorldMap {
     }
 
     public List<Animal> getAnimalList() {
-        System.out.println("getAnimalList");
         List<Animal> animals = new LinkedList<>();
         for (AnimalCluster animalCluster : animalClusters.values()) {
-//            throw new IndexOutOfBoundsException();
-            System.out.println("getAnimalList ziomus " + animalCluster);
             PriorityQueue<Animal> animalsQueue = animalCluster.getCluster();
             animalsQueue.stream().iterator().forEachRemaining(animals::add);
-            System.out.println("getAnimalList " + animalCluster + " liast after adding " + animals);
         }
-        System.out.println("getAnimalList final list " + animals);
         return animals;
     }
 
@@ -145,7 +140,7 @@ public class WorldMap {
     }
 
     public boolean isMapEmpty () {
-        return animalClusters.size() == 0;
+        return animalClusters.isEmpty();
     }
 
     public Position getRandomPositionOnTheMap () {

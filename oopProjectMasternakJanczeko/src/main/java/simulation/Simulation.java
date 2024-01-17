@@ -1,12 +1,9 @@
 package simulation;
-
 import animal.Animal;
 import javafx.stage.Stage;
 import model.WorldMap;
 import presenter.SimulationApp;
-
 import java.util.LinkedList;
-import java.util.List;
 
 public class Simulation implements Runnable {
 
@@ -49,7 +46,7 @@ public class Simulation implements Runnable {
             plantGrowthManager = new DefaultPlantGrowthManager(worldMap);
         }
         else {
-            plantGrowthManager = new DefaultPlantGrowthManager(worldMap); //to be added
+            plantGrowthManager = new DefaultPlantGrowthManager(worldMap);   //to be added
         }
     }
 
@@ -71,9 +68,7 @@ public class Simulation implements Runnable {
                                           simulationRules.plantNutritionalValue(),
                                           simulationRules.equatorSpan()); //!!!!!
 
-            System.out.println("run before getAnimalsList");
             for (Animal animal : worldMap.getAnimalList()) {
-                System.out.println("run after getAnimalsList");
                 animal.ageByADay();
             }
 
@@ -83,9 +78,9 @@ public class Simulation implements Runnable {
             SimulationApp simulationApp = new SimulationApp();
             Stage stage = new Stage();      // TODO - pass proper stage
             simulationApp.start(stage);
-        } catch (Exception e) {
-            System.out.println("error :( " + e.getClass().getName() + " " + e.getMessage() + " " + List.of(e.getStackTrace()));
-//            throw new RuntimeException(e);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
         }
         finally {
             System.out.println("SimulationApp finished");

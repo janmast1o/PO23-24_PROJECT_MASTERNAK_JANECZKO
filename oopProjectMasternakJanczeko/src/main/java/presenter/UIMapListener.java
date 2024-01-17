@@ -51,7 +51,8 @@ public class UIMapListener implements MapChangeListener{
                 mapGrid.getChildren().add(cellPane);
                 try {
                     Thread.sleep(400);
-                } catch (InterruptedException e) {
+                }
+                catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }

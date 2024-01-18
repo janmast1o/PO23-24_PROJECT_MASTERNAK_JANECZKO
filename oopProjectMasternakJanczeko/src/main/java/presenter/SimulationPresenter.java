@@ -81,6 +81,9 @@ public class SimulationPresenter {
     @FXML
     private Label animalDescendants;
 
+    @FXML
+    private Label alternativeViewErrorMessage;
+
 
     private Simulation simulation;
 
@@ -339,7 +342,11 @@ public class SimulationPresenter {
                     mapGrid.getChildren().add(cellPane);
                 }
             }
+            alternativeViewErrorMessage.setText("");
 
+        }
+        else {
+           alternativeViewErrorMessage.setText("Please stop the simulation first");
         }
     }
 
@@ -379,7 +386,11 @@ public class SimulationPresenter {
                     mapGrid.getChildren().add(cellPane);
                 }
             }
+            alternativeViewErrorMessage.setText("");
 
+        }
+        else {
+            alternativeViewErrorMessage.setText("Please stop the simulation first");
         }
     }
 

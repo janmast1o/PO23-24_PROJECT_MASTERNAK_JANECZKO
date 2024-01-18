@@ -16,11 +16,11 @@ public class FisherYatesShuffle {
             Integer selectedIndex = randomIndexChoice.nextInt(i,n);
             if (arraySim.containsKey(selectedIndex)) {
                 chosenNumbers.add(arraySim.get(selectedIndex));
-                fixArraySim(arraySim,i,selectedIndex);
             }
             else {
                 chosenNumbers.add(selectedIndex);
             }
+            fixArraySim(arraySim,i,selectedIndex);
         }
 
         return chosenNumbers;

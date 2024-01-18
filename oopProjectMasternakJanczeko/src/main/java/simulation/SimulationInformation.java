@@ -11,17 +11,10 @@ import java.util.Set;
 
 public class SimulationInformation {
 
-    private List<AnimalDeathCertificate> animalDeathCertificates;
-
     private WorldMap worldMap;
 
     public SimulationInformation (WorldMap worldMap) {
         this.worldMap = worldMap;
-        animalDeathCertificates = new LinkedList<>();
-    }
-
-    public void addDeathCertificate (Animal animal, int day) {
-        animalDeathCertificates.add(new AnimalDeathCertificate(animal,day));
     }
 
     public int getNumberOfAnimals () {
@@ -58,7 +51,7 @@ public class SimulationInformation {
         for (Animal animal : worldMap.getDeadAnimals()) {
             averageLifetime += animal.getLifeTime();
         }
-        if (animalDeathCertificates.size() == 0) {
+        if (worldMap.getDeadAnimals().size() == 0) {
             return 0;
         }
         return averageLifetime/worldMap.getDeadAnimals().size();

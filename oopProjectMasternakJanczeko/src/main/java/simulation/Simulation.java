@@ -166,7 +166,7 @@ public class Simulation implements Runnable {
                     }
                 }
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(800);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

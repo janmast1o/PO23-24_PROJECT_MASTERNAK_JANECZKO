@@ -24,17 +24,27 @@ public abstract class AbstractPlantGrowthManager implements PlantGrowthManager {
     public void growPlants (int numberOfPlantsToGrow, int nutritionalValue) {
         ArrayList<Position> fieldsWithNoPlants = worldMap.getFieldsWithNoPlants();
         PairOfLists lists = seperatePrefferedAndUnpreffred(fieldsWithNoPlants);
-        int count = Math.min (numberOfPlantsToGrow, lists.firstList().size());
-        int splitPoint = (int) (count*0.8);
-        List<Integer> preferredFieldsChoice = FisherYatesShuffle.shuffle (splitPoint,count);
-        List<Integer> unpreferredFieldsChoice = FisherYatesShuffle.shuffle (count-splitPoint,count);
+        int count = Math.min (numberOfPlantsToGrow, fieldsWithNoPlants.size());
 
-        for (int i : preferredFieldsChoice) {
-            worldMap.growAPlant(lists.firstList().get(i), nutritionalValue);
+        List<Integer> preferredFieldsChoice = FisherYatesShuffle.shuffle (
+                lists.firstList().size(), lists.firstList().size()
+        );
+        List<Integer> unpreferredFieldsChoice = FisherYatesShuffle.shuffle (
+                lists.secondList().size(), lists.secondList().size()
+        );
+
+        int i=0;
+        while (i < (count*0.8) && i < lists.firstList().size()) {
+            worldMap.growAPlant(lists.firstList().get(preferredFieldsChoice.get(i)), nutritionalValue);
+            i++;
         }
-        for (int i : unpreferredFieldsChoice) {
-            worldMap.growAPlant(lists.secondList().get(i), nutritionalValue);
+        int j=0;
+        while (i < count && j < lists.secondList().size()) {
+            worldMap.growAPlant(lists.secondList().get(unpreferredFieldsChoice.get(j)), nutritionalValue);
+            i++;
+            j++;
         }
+
     }
 
     @Override

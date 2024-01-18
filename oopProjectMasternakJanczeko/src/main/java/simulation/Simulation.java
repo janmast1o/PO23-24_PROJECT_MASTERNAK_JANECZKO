@@ -98,8 +98,13 @@ public class Simulation implements Runnable {
         if (animalToTrack != null) {
             animalToTrack.removeTracker();
         }
-        animalToTrack = worldMap.getTopAnimalAt(position);
-        animalToTrack.setTracker(new UIAnimalTracker (simulationPresenter));
+        try {
+            animalToTrack = worldMap.getTopAnimalAt(position);
+            animalToTrack.setTracker(new UIAnimalTracker(simulationPresenter));
+        }
+        catch (NullPointerException exception) {
+            ;
+        }
     }
 
     public void stopTracking () {
@@ -111,7 +116,7 @@ public class Simulation implements Runnable {
     public void run () {
         while (!worldMap.isEmpty()) {
 
-            gravedigger.removeDeadAnimals(day,simulationInformation);
+            gravedigger.removeDeadAnimals(day);
 
             animalGuide.moveAnimals();
 

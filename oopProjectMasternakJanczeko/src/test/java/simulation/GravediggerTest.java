@@ -31,7 +31,7 @@ class GravediggerTest {
         animal2.drainEnergy(3);
         animal3.drainEnergy(3);
         Gravedigger gravedigger = new Gravedigger(worldMap);
-        gravedigger.removeDeadAnimals(0,new SimulationInformation(worldMap));
+        gravedigger.removeDeadAnimals(0);
         List<Animal> aliveAnimals = worldMap.getAnimalList();
         List<Animal> deadAnimals = worldMap.getDeadAnimals();
         Set<Position> recentDeathPlaces = worldMap.getRecentDeathPlaces();

@@ -11,13 +11,12 @@ public class Gravedigger {
         this.worldMap = worldMap;
     }
 
-    protected void removeDeadAnimals (int day, SimulationInformation simulationInformation) {
+    protected void removeDeadAnimals (int day) {
         for (Animal animal : worldMap.getAnimalList()) {
             if (!animal.isAlive()) {
                 worldMap.removeAnimal(animal.getPosition(), animal);
                 worldMap.registerDeathOfAnAnimal(animal.getPosition(), animal);
                 animal.setDeathDate(day);
-                simulationInformation.addDeathCertificate(animal,day);
             }
         }
 

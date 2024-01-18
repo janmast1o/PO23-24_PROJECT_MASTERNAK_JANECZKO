@@ -104,6 +104,53 @@ public class SimulationPresenter {
         mapGrid.getRowConstraints().clear();
     }
 
+    private void drawBorder (int a, int b, int c, int d) {
+        double gridCellWidth = GridCellWidthCalculation.determineGridCellWidth (Math.max(c-a+1,d-b+1));
+        for (int i = a; i <= c; i++) {
+            Rectangle cell = new Rectangle (gridCellWidth,gridCellWidth);
+            cell.setStroke(BLACK);
+            cell.setFill(GREY);
+            Text cellText = new Text(i+"");
+
+            StackPane cellPane = new StackPane();
+            cellPane.getChildren().addAll(cell,cellText);
+
+            GridPane.setRowIndex(cellPane,0);
+            GridPane.setColumnIndex(cellPane,i);
+
+            mapGrid.getChildren().add(cellPane);
+        }
+
+        Rectangle cell1 = new Rectangle (gridCellWidth,gridCellWidth);
+        cell1.setStroke(BLACK);
+        cell1.setFill(GREY);
+        Text cellText1 = new Text("");
+
+        StackPane cellPane1 = new StackPane();
+        cellPane1.getChildren().addAll(cell1,cellText1);
+
+        GridPane.setRowIndex(cellPane1,0);
+        GridPane.setColumnIndex(cellPane1,c+1);
+
+        mapGrid.getChildren().add(cellPane1);
+
+        for (int i = b; i <= d; i++) {
+            Rectangle cell = new Rectangle (gridCellWidth,gridCellWidth);
+            cell.setStroke(BLACK);
+            cell.setFill(GREY);
+            Text cellText = new Text(i+"");
+
+            StackPane cellPane = new StackPane();
+            cellPane.getChildren().addAll(cell,cellText);
+
+            GridPane.setRowIndex(cellPane,d+1-i);
+            GridPane.setColumnIndex(cellPane,c+1);
+
+            mapGrid.getChildren().add(cellPane);
+        }
+
+    }
+
 
     public void drawGrid (WorldMap worldMap) throws InterruptedException {
         clearGrid();
@@ -113,6 +160,7 @@ public class SimulationPresenter {
         int d = worldMap.getBoundaries().upperRight().y();
         double gridCellWidth = GridCellWidthCalculation.determineGridCellWidth (Math.max(c-a+1,d-b+1));
 
+        drawBorder (a,b,c,d);
 
         for (int j = d; j >= b; j--) {
             for (int i = a; i <= c; i++) {
@@ -156,7 +204,7 @@ public class SimulationPresenter {
                 StackPane cellPane = new StackPane();
                 cellPane.getChildren().addAll(cell,cellText);
 
-                GridPane.setRowIndex(cellPane,d-j);
+                GridPane.setRowIndex(cellPane,d-j+1);
                 GridPane.setColumnIndex(cellPane,i);
 
                 mapGrid.getChildren().add(cellPane);

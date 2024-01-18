@@ -61,8 +61,8 @@
                    <Label/>
                    <Label text="Choose an animal to track:"/>
                    <HBox spacing="2">
-                       <TextField fx:id="animalTrackerXCoord"/>
-                       <TextField fx:id="animalTrackerYCoord"/>
+                       <TextField fx:id="animalTrackerXCoord" text="x"/>
+                       <TextField fx:id="animalTrackerYCoord" text="y"/>
                        <Button fx:id="tracker" text="Track" onAction="#onTrackClicked"/>
                        <Button fx:id="untracker" text="Stop tracking" onAction="#onUntrackClicked"/>
                    </HBox>

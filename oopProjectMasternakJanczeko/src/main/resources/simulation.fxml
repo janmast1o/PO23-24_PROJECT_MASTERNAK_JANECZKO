@@ -58,7 +58,6 @@
 
                <VBox spacing="4">
                    <Label/>
-                   <Label/>
                    <Label text="Choose an animal to track:"/>
                    <HBox spacing="2">
                        <TextField fx:id="animalTrackerXCoord" text="x"/>
@@ -94,17 +93,23 @@
                </VBox>
 
                <VBox spacing="4">
+                   <Label text="Number of animal's descendants:"/>
+                   <Label fx:id="animalDescendants" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
                    <Label text="Animal's lifetime:"/>
                    <Label fx:id="animalLifetime" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox>
+               <VBox spacing="4">
                    <Label text="Animal's death date:"/>
                    <Label fx:id="animalDeathDate" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
 
            </VBox>
+
     </left>
 
     <center>

@@ -64,7 +64,7 @@ public class DefaultAnimalGuide implements AnimalGuide {
                     }
                 }
             }try {
-                Thread.sleep(800);
+                Thread.sleep(650);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

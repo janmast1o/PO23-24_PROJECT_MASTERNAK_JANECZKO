@@ -78,6 +78,9 @@ public class SimulationPresenter {
     @FXML
     private Label animalDeathDate;
 
+    @FXML
+    private Label animalDescendants;
+
 
     private Simulation simulation;
 
@@ -224,12 +227,13 @@ public class SimulationPresenter {
         this.averageNumberOfChildren.setText(BigDecimal.valueOf(averageNumberOfChildren).setScale(4)+"");
     }
 
-    public void changeAnimalInformation (ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate) throws InterruptedException {
+    public void changeAnimalInformation (ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate, int numberOfDescendants) throws InterruptedException {
         animalGenome.setText(genome+"");
         activeIndex.setText(activeGene+"");
         this.energy.setText(energy+"");
         this.numberOfEatenPlants.setText(numberOfEatenPlants+"");
         this.numberOfChildren.setText(numberOfChildren+"");
+        animalDescendants.setText(numberOfDescendants+"");
         animalLifetime.setText(lifetime+"");
         animalDeathDate.setText(deathDate+"");
     }
@@ -251,8 +255,8 @@ public class SimulationPresenter {
     }
 
     private void trackCatchErrors () throws IllegalArgumentException {
-        int x = Parser.parse(animalTrackerXCoord.getText().split(""));
-        int y = Parser.parse(animalTrackerYCoord.getText().split(""));
+        int x = Parser.parse(animalTrackerXCoord.getText());
+        int y = Parser.parse(animalTrackerYCoord.getText());
         Position position = new Position(x,y);
         if (!simulation.getWorldMap().withinBoundariesX(position) || !simulation.getWorldMap().withinBoundariesY(position)) {
             throw new IllegalArgumentException();
@@ -267,8 +271,8 @@ public class SimulationPresenter {
             try {
                 trackCatchErrors ();
                 animalTrackerErrorMessage.setText("");
-                int x = Parser.parse(animalTrackerXCoord.getText().split(""));
-                int y = Parser.parse(animalTrackerYCoord.getText().split(""));
+                int x = Parser.parse(animalTrackerXCoord.getText());
+                int y = Parser.parse(animalTrackerYCoord.getText());
                 Position position = new Position(x,y);
                 simulation.startTracking(position,this);
             }
@@ -286,6 +290,7 @@ public class SimulationPresenter {
         energy.setText("N/A");
         numberOfEatenPlants.setText("N/A");
         numberOfChildren.setText("N/A");
+        animalDescendants.setText("N/A");
         animalLifetime.setText("N/A");
         animalDeathDate.setText("N/A");
 

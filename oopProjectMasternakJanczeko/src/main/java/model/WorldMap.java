@@ -148,7 +148,7 @@ public class WorldMap {
         return animalClusters.containsKey(position) && !animalClusters.get(position).isEmpty();
     }
 
-    public Animal getTopAnimalAt (Position position) {
+    public Animal getTopAnimalAt (Position position) throws NullPointerException {
         return animalClusters.get(position).getTopAnimal();
     }
 

@@ -55,27 +55,27 @@ public class SimulationInformation {
 
     public double getAverageLifetimeOfDeadAnimals () {
         double averageLifetime = 0;
-        for (AnimalDeathCertificate deathCertificate : animalDeathCertificates) {
-            averageLifetime += deathCertificate.animal().getLifeTime();
+        for (Animal animal : worldMap.getDeadAnimals()) {
+            averageLifetime += animal.getLifeTime();
         }
         if (animalDeathCertificates.size() == 0) {
             return 0;
         }
-        return averageLifetime/animalDeathCertificates.size();
+        return averageLifetime/worldMap.getDeadAnimals().size();
     }
 
     public double getAverageNumberOfChildren () {
         double averageNumberOfChildren = 0;
-        for (AnimalDeathCertificate deathCertificate : animalDeathCertificates) {
-            averageNumberOfChildren += deathCertificate.animal().getNumberOfChildren();
+        for (Animal animal : worldMap.getDeadAnimals()) {
+            averageNumberOfChildren += animal.getNumberOfChildren();
         }
         for (Animal animal : worldMap.getAnimalList()) {
             averageNumberOfChildren += animal.getNumberOfChildren();
         }
-        if (animalDeathCertificates.size()+worldMap.getAnimalList().size() == 0) {
+        if (worldMap.getDeadAnimals().size()+worldMap.getAnimalList().size() == 0) {
             return 0;
         }
-        return averageNumberOfChildren / (animalDeathCertificates.size()+worldMap.getAnimalList().size());
+        return averageNumberOfChildren / (worldMap.getDeadAnimals().size()+worldMap.getAnimalList().size());
     }
 
     public double getAverageEnergy () {

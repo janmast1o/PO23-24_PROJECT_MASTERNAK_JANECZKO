@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            minHeight="770.5" minWidth="1005.5"
+            fx:controller="presenter.SimulationPresenter">
+
+    <left>
+           <VBox spacing="5">
+
+               <VBox spacing="3">
+                   <Label text="Day: "/>
+                   <Label fx:id="dayCounter" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Number of alive animals on the map: "/>
+                   <Label fx:id="numberOfAliveAnimals" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Number of plants growing on the map: "/>
+                   <Label fx:id="numberOfPlants" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Number of fields occupied by no animals: "/>
+                   <Label fx:id="numberOfUnoccupiedFields" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="The most popular type of gene: "/>
+                   <Label fx:id="mostPopularGene" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Average level of energy among the animals :"/>
+                   <Label fx:id="averageEnergy" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Average lifetime among the already buried animals: "/>
+                   <Label fx:id="averageLifetime" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Average number of children among all animals to ever appear on the map: "/>
+                   <Label fx:id="averageNumberOfChildren" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label/>
+                   <Label/>
+                   <Label text="Choose an animal to track:"/>
+                   <HBox spacing="2">
+                       <TextField fx:id="animalTrackerXCoord"/>
+                       <TextField fx:id="animalTrackerYCoord"/>
+                       <Button fx:id="tracker" text="Track" onAction="#onTrackClicked"/>
+                       <Button fx:id="untracker" text="Stop tracking" onAction="#onUntrackClicked"/>
+                   </HBox>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Animal's genome:"/>
+                   <Label fx:id="animalGenome" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox>
+                   <Label text="Active index:"/>
+                   <Label fx:id="activeIndex" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Animal's energy:"/>
+                   <Label fx:id="energy" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Animal's number of eaten plants:"/>
+                   <Label fx:id="numberOfEatenPlants" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Animal's number of children:"/>
+                   <Label fx:id="numberOfChildren" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="4">
+                   <Label text="Animal's lifetime:"/>
+                   <Label fx:id="animalLifetime" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox>
+                   <Label text="Animal's death date:"/>
+                   <Label fx:id="animalDeathDate" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+
+           </VBox>
+    </left>
+
+    <center>
+
+        <GridPane fx:id="mapGrid" alignment="CENTER" gridLinesVisible="true">
+        </GridPane>
+
+    </center>
+
+    <bottom>
+            <VBox spacing="4">
+                <HBox alignment="CENTER" spacing="4">
+                    <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
+                    <Button fx:id="stopButton" text="Stop" onAction="#onStopClicked"/>
+                    <Button fx:id="resumeButton" text="Resume" onAction="#onResumeClicked"/>
+                    <Button fx:id="terminationButton" text="Terminate" onAction="#onTerminateClicked"/>
+                </HBox>
+                <Label/>
+                <Label/>
+            </VBox>
+    </bottom>
+
+    <right>
+        <Label fx:id="animalTrackerErrorMessage" alignment="TOP_RIGHT" text="" style="-fx-font-size: 11; -fx-text-fill: red;"/>
+    </right>
+
+
+</BorderPane>
+

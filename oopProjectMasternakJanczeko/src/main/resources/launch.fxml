@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            minHeight="600" minWidth="600"
+            fx:controller="LaunchWindow">
+
+    <top>
+        <VBox alignment="TOP_RIGHT">
+            <Label fx:id="wrongInputErrorMessage" text="" style="-fx-font-size: 11; -fx-text-fill: red;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="3">
+            <HBox spacing="3">
+                <Label text="Map width:"/>
+                <Spinner fx:id="mapWidth" min="4" max="32" editable="true" initialValue="20"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Map height:"/>
+                <Spinner fx:id="mapHeight" min="4" max="32" editable="true" initialValue="12"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Map variant:"/>
+                <ComboBox fx:id="mapVariant">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Globe"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Initial number of plants:"/>
+                <Spinner fx:id="initialNumberOfPlants" min="1" max="150" editable="true" initialValue="10"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Nutritional value of grown plants:"/>
+                <Spinner fx:id="plantsNutritionalValue" min="1" max="30" editable="true" initialValue="30"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Number of plants to be grown each day:"/>
+                <Spinner fx:id="numberOfPlantsGrownPerDay" min="2" max="80" editable="true" initialValue="18"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Plant growth variant:"/>
+                <ComboBox fx:id="plantGrowthVariant">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Forested equator"/>
+                            <String fx:value="Life-giving carcasses"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Initial number of animals:"/>
+                <Spinner fx:id="initialNumberOfAnimals" min="1" max="40" editable="true" initialValue="18"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Starting energy of animals:"/>
+                <Spinner fx:id="startingEnergy" min="4" max="400" editable="true" initialValue="90"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Sufficient reproduction energy:"/>
+                <Spinner fx:id="sufficientReproductionEnergy" min="5" max="50" editable="true" initialValue="25"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Amount of energy lost during reproduction:"/>
+                <Spinner fx:id="energyLostAfterReproduction" min="3" max="40" editable="true" initialValue="15"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Minimum number of mutations:"/>
+                <Spinner fx:id="minNumberOfMutations" min="0" max="20" editable="true" initialValue="1"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Maximum number of mutations:"/>
+                <Spinner fx:id="maxNumberOfMutations" min="0" max="60" editable="true" initialValue="12"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Mutation variant:"/>
+                <ComboBox fx:id="mutationVariant">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Full randomness"/>
+                            <String fx:value="Substitution"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Length of the genome:"/>
+                <Spinner fx:id="lengthOfTheGenome" min="2" max="28" editable="true" initialValue="24"/>
+            </HBox>
+
+            <HBox spacing="3">
+                <Label text="Animal behavior variant:"/>
+                <ComboBox fx:id="animalBehaviorVariant">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Full predestination"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <HBox spacing="3">
+                <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
+            </HBox>
+        </VBox>
+
+    </center>
+
+</BorderPane>

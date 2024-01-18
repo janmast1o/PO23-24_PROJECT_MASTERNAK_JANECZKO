@@ -3,6 +3,7 @@ package animal;
 import model.Position;
 import model.WorldDirection;
 import presenter.UIAnimalTracker;
+import util.NumberOfDescendantsFinder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -162,7 +163,7 @@ public class Animal {
 
     private void changesOccured () {
         if (animalTracker != null) {
-            animalTracker.animalChanged(genome,activeGene,energy,getNumberOfEatenPlants(),getNumberOfChildren(),getLifeTime(),getDeathDate());
+            animalTracker.animalChanged(genome,activeGene,energy,getNumberOfEatenPlants(),getNumberOfChildren(),getLifeTime(),getDeathDate(), NumberOfDescendantsFinder.findNumberOfDescendants(this));
         }
     }
 

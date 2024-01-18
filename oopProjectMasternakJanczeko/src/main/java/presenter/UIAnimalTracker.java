@@ -12,11 +12,11 @@ public class UIAnimalTracker {
         this.simulationPresenter = simulationPresenter;
     }
 
-    public void animalChanged (ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate) {
+    public void animalChanged (ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate, int numberOfDescendants) {
         Platform.runLater(()-> {
             try {
                 simulationPresenter.changeAnimalInformation(
-                        genome,activeGene,energy,numberOfEatenPlants,numberOfChildren,lifetime,deathDate
+                        genome,activeGene,energy,numberOfEatenPlants,numberOfChildren,lifetime,deathDate,numberOfDescendants
                 );
             }
             catch (InterruptedException exception) {

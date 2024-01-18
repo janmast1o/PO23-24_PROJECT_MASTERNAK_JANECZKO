@@ -5,9 +5,7 @@ import model.Position;
 import model.WorldMap;
 import presenter.*;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 
 import static java.lang.Thread.sleep;
@@ -175,6 +173,22 @@ public class Simulation implements Runnable {
             }
         }
 
+    }
+
+
+    public Set<Position> getPositionsOfAnimalsWithACertainGene (int gene) {
+        List<Animal> animals = worldMap.getAnimalList();
+        Set<Position> soughtPositions = new HashSet<>();
+        for (Animal animal : animals) {
+            if (animal.hasGene(gene)) {
+                soughtPositions.add(animal.getPosition());
+            }
+        }
+        return soughtPositions;
+    }
+
+    public Set<Position> getFieldsPreferredByPlants () {
+        return plantGrowthManager.getPreferredFields();
     }
 
 }

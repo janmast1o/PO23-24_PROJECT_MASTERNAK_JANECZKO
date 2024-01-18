@@ -70,7 +70,7 @@ public class Animal {
 
     public void incrementActiveGene () {
         activeGene = (activeGene+1)% genome.size();
-        changesOccured();
+        changesOccurred();
     }
 
     public Position previewMovement () {
@@ -82,25 +82,25 @@ public class Animal {
         direction = direction.performNextNTimes(genome.get(activeGene));
         position = position.addPostition (direction.toVector());
         energy--;
-        changesOccured();
+        changesOccurred();
     }
 
     public void turnAround () {
         direction = direction.performNextNTimes(genome.get(activeGene));
         direction = direction.performNextNTimes(4);
         energy--;
-        changesOccured();
+        changesOccurred();
     }
 
     public void teleport (Position newPosition) {
         position = newPosition;
         energy--;
-        changesOccured();
+        changesOccurred();
     }
 
     public void addChild (Animal child) {
         animalInformation.addChild (child);
-        changesOccured();
+        changesOccurred();
     }
 
     public boolean isAlive () {
@@ -109,7 +109,7 @@ public class Animal {
 
     public void registerPlantConsumption () {
         animalInformation.registerPlantConsumption();
-        changesOccured();
+        changesOccurred();
     }
 
     public int getNumberOfChildren () {
@@ -122,12 +122,12 @@ public class Animal {
 
     public void replenishEnergy (int energy) {
         this.energy += energy;
-        changesOccured();
+        changesOccurred();
     }
 
     public void drainEnergy (int energy) {
         this.energy -= energy;
-        changesOccured();
+        changesOccurred();
     }
 
     public boolean hasSufficientEnergy (int sufficientEnergy) {
@@ -136,7 +136,7 @@ public class Animal {
 
     public void ageByADay () {
         animalInformation.ageByADay();
-        changesOccured();
+        changesOccurred();
     }
 
     @Override
@@ -146,7 +146,7 @@ public class Animal {
 
     public void setDeathDate (int deathDate) {
         animalInformation.setDeathDate(deathDate);
-        changesOccured();
+        changesOccurred();
     }
 
     public int getDeathDate () {
@@ -161,10 +161,19 @@ public class Animal {
         animalTracker = null;
     }
 
-    private void changesOccured () {
+    private void changesOccurred() {
         if (animalTracker != null) {
             animalTracker.animalChanged(genome,activeGene,energy,getNumberOfEatenPlants(),getNumberOfChildren(),getLifeTime(),getDeathDate(), NumberOfDescendantsFinder.findNumberOfDescendants(this));
         }
+    }
+
+    public boolean hasGene (int soughtGene) {
+        for (int gene : genome) {
+            if (gene == soughtGene) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

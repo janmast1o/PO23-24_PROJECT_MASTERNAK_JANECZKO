@@ -58,10 +58,10 @@
 
                <VBox spacing="4">
                    <Label/>
-                   <Label text="Choose an animal to track:"/>
+                   <Label text="Choose coordinates of an animal to track:"/>
                    <HBox spacing="2">
-                       <TextField fx:id="animalTrackerXCoord" text="x"/>
-                       <TextField fx:id="animalTrackerYCoord" text="y"/>
+                       <TextField fx:id="animalTrackerXCoord" text="x" prefWidth="35"/>
+                       <TextField fx:id="animalTrackerYCoord" text="y" prefWidth="35"/>
                        <Button fx:id="tracker" text="Track" onAction="#onTrackClicked"/>
                        <Button fx:id="untracker" text="Stop tracking" onAction="#onUntrackClicked"/>
                    </HBox>
@@ -125,6 +125,8 @@
                     <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
                     <Button fx:id="stopButton" text="Stop" onAction="#onStopClicked"/>
                     <Button fx:id="resumeButton" text="Resume" onAction="#onResumeClicked"/>
+                    <Button fx:id="showAnimalsWithTheMostPopularGeneButton" text="Show animals with the most popular gene" onAction="#onShowAnimalsWithTheMostPopularGeneClicked"/>
+                    <Button fx:id="showPreferredFields" text="Show fields preferred by plants" onAction="#onShowFieldsPreferredByPlantsClicked"/>
                     <Button fx:id="terminationButton" text="Terminate" onAction="#onTerminateClicked"/>
                 </HBox>
                 <Label/>

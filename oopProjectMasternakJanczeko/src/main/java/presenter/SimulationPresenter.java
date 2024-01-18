@@ -15,7 +15,7 @@ import util.Parser;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
+import java.util.Set;
 
 import static javafx.scene.paint.Color.*;
 
@@ -300,6 +300,86 @@ public class SimulationPresenter {
         if (everInterrupted == false) {
             everInterrupted = true;
             simulationThread.interrupt();
+        }
+    }
+
+    public void onShowAnimalsWithTheMostPopularGeneClicked () {
+        if (simulation.isStopped() && !mostPopularGene.getText().equals("N/A")) {
+            Set<Position> positionsOfTheAnimalsWithTheMostPopularGene = simulation.getPositionsOfAnimalsWithACertainGene(Parser.parse(mostPopularGene.getText()));
+
+            clearGrid();
+            int a = simulation.getWorldMap().getBoundaries().lowerLeft().x();
+            int b = simulation.getWorldMap().getBoundaries().lowerLeft().y();
+            int c = simulation.getWorldMap().getBoundaries().upperRight().x();
+            int d = simulation.getWorldMap().getBoundaries().upperRight().y();
+            double gridCellWidth = GridCellWidthCalculation.determineGridCellWidth(Math.max(c - a + 1, d - b + 1));
+
+            drawBorder(a, b, c, d);
+
+            for (int j = d; j >= b; j--) {
+                for (int i = a; i <= c; i++) {
+                    Rectangle cell = new Rectangle(gridCellWidth, gridCellWidth);
+                    cell.setStroke(BLACK);
+                    if (positionsOfTheAnimalsWithTheMostPopularGene.contains(new Position(i,j))) {
+                        cell.setFill(PINK);
+                    }
+                    else {
+                        cell.setFill(TRANSPARENT);
+                    }
+                    Text cellText = new Text("");
+                    cellText.setText(simulation.getWorldMap().objectAtToString(new Position(i, j)));
+
+
+                    StackPane cellPane = new StackPane();
+                    cellPane.getChildren().addAll(cell, cellText);
+
+                    GridPane.setRowIndex(cellPane, d - j + 1);
+                    GridPane.setColumnIndex(cellPane, i);
+
+                    mapGrid.getChildren().add(cellPane);
+                }
+            }
+
+        }
+    }
+
+    public void onShowFieldsPreferredByPlantsClicked () {
+        if (simulation.isStopped()) {
+            Set<Position> preferredFields = simulation.getFieldsPreferredByPlants();
+
+            clearGrid();
+            int a = simulation.getWorldMap().getBoundaries().lowerLeft().x();
+            int b = simulation.getWorldMap().getBoundaries().lowerLeft().y();
+            int c = simulation.getWorldMap().getBoundaries().upperRight().x();
+            int d = simulation.getWorldMap().getBoundaries().upperRight().y();
+            double gridCellWidth = GridCellWidthCalculation.determineGridCellWidth(Math.max(c - a + 1, d - b + 1));
+
+            drawBorder(a, b, c, d);
+
+            for (int j = d; j >= b; j--) {
+                for (int i = a; i <= c; i++) {
+                    Rectangle cell = new Rectangle(gridCellWidth, gridCellWidth);
+                    cell.setStroke(BLACK);
+                    if (preferredFields.contains(new Position(i,j))) {
+                        cell.setFill(LIGHTBLUE);
+                    }
+                    else {
+                        cell.setFill(TRANSPARENT);
+                    }
+                    Text cellText = new Text("");
+                    cellText.setText(simulation.getWorldMap().objectAtToString(new Position(i, j)));
+
+
+                    StackPane cellPane = new StackPane();
+                    cellPane.getChildren().addAll(cell, cellText);
+
+                    GridPane.setRowIndex(cellPane, d - j + 1);
+                    GridPane.setColumnIndex(cellPane, i);
+
+                    mapGrid.getChildren().add(cellPane);
+                }
+            }
+
         }
     }
 

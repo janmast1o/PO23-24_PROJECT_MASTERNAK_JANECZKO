@@ -5,8 +5,7 @@ import model.WorldMap;
 import util.FisherYatesShuffle;
 import util.PairOfLists;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class AbstractPlantGrowthManager implements PlantGrowthManager {
 
@@ -38,4 +37,10 @@ public abstract class AbstractPlantGrowthManager implements PlantGrowthManager {
         }
     }
 
+    @Override
+    public Set<Position> getPreferredFields() {
+        ArrayList<Position> fieldsWithNoPlants = worldMap.getFieldsWithNoPlants();
+        PairOfLists lists = seperatePrefferedAndUnpreffred(fieldsWithNoPlants);
+        return new HashSet<>(lists.firstList());
+    }
 }

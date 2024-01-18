@@ -14,13 +14,18 @@ public class WorldMap {
 
     private HashMap<Position,AnimalCluster> animalClusters;
 
-    private Set<MapChangeListener> listeners;
+    private MapChangeListener listener;
 
-    public WorldMap (Boundaries boundaries) {
-        this.boundaries = boundaries;
+    private List<Animal> deadAnimals;
+
+    private Set<Position> recentDeathPlaces;
+
+    public WorldMap (int width, int height) {
+        this.boundaries = new Boundaries (new Position (0,0), new Position(width-1,height-1));
         plants = new HashMap<>();
         animalClusters = new HashMap<>();
-        listeners = new HashSet<>();
+        deadAnimals = new LinkedList<>();
+        recentDeathPlaces = new HashSet<>();
     }
 
     public Boundaries getBoundaries() {
@@ -43,18 +48,22 @@ public class WorldMap {
         return boundaries.size();
     }
 
+    public boolean withinEquatorSpan (Position position) {
+        return boundaries.withinEquatorSpan(position);
+    }
+
     public int getNumberOfUnoccupiedPositions () {
         return mapSize()- animalClusters.size();
     }
 
-    public HashMap<Position, Integer> getPlants() {
-        return plants;
+    public int getNumberOfPlants() {
+        return plants.size();
     }
 
     public List<Animal> getAnimalList() {
         List<Animal> animals = new LinkedList<>();
         for (AnimalCluster animalCluster : animalClusters.values()) {
-            animals.addAll ((List) animalCluster);
+            animals.addAll (animalCluster.getClusterAsList());
         }
         return animals;
     }
@@ -100,8 +109,25 @@ public class WorldMap {
         placeAnimal(newPosition,animal);
     }
 
-    public void turnAroundAnimal (Position position, Animal animal) {
+    public void animalTurnedAround (Position position) {
         changesOccurred(position);
+    }
+
+    public void registerDeathOfAnAnimal (Position position, Animal animal) {
+        deadAnimals.add(animal);
+        recentDeathPlaces.add(position);
+    }
+
+    public List<Animal> getDeadAnimals () {
+        return deadAnimals;
+    }
+
+    public Set<Position> getRecentDeathPlaces () {
+        return recentDeathPlaces;
+    }
+
+    public void clearRecentDeathPlaces () {
+        recentDeathPlaces.clear();
     }
 
     public boolean isOccupiedByPlants(Position position) {
@@ -130,6 +156,10 @@ public class WorldMap {
         return animalClusters.get(position).getSecondToTheTopAnimal();
     }
 
+    public Integer getPlantsNutritionalValueAt (Position position) {
+        return plants.get(position);
+    }
+
     public List<Position> getPositionsOfBigClusters () {
         List<Position> positions = new LinkedList<>();
         for (Position position : animalClusters.keySet()) {
@@ -140,7 +170,7 @@ public class WorldMap {
         return positions;
     }
 
-    public boolean isMapEmpty () {
+    public boolean isEmpty() {
         return animalClusters.size() == 0;
     }
 
@@ -149,16 +179,16 @@ public class WorldMap {
     }
 
     public void addListener (MapChangeListener listener) {
-        listeners.add(listener);
+        this.listener = listener;
     }
 
     public void removeListener (MapChangeListener listener) {
-        listeners.remove(listener);
+        this.listener = null;
     }
 
     private void changesOccurred (Position position) {
-        for (MapChangeListener listener : listeners) {
-            listener.mapChanged(this,position);
+        if (listener != null) {
+            listener.mapChanged(this, position);
         }
     }
 
@@ -173,7 +203,5 @@ public class WorldMap {
             return "";
         }
     }
-
-
 
 }

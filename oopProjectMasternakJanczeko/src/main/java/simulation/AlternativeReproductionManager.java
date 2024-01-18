@@ -6,7 +6,7 @@ import util.FisherYatesShuffle;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class AlternativeReproductionManager extends ReproductionManager {
+public class AlternativeReproductionManager extends AbstractReproductionManager {
 
     private Random geneMutator;
 
@@ -26,6 +26,7 @@ public class AlternativeReproductionManager extends ReproductionManager {
         //Fisher Yates Shuffle
         for (int i : FisherYatesShuffle.shuffle(chosenNumberOfMutations,genes.size())) {
             genes.set(i, (genes.get(i)+getNumberToAdd())%8);
+            if (genes.get(i) == -1) genes.set(i,0);
         }
     }
 

@@ -12,7 +12,7 @@ public class DarwinAppLaunchWindow extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("launch.fxml"));
         BorderPane viewRoot = loader.load();
-        LaunchWindow darwinAppLaunchWindow = loader.getController();
+        LaunchWindow launchWindow = loader.getController();
         configureStage(primaryStage,viewRoot);
         primaryStage.show();
     }

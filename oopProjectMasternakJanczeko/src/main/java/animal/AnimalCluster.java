@@ -1,6 +1,8 @@
 package animal;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class AnimalCluster {
@@ -31,7 +33,7 @@ public class AnimalCluster {
 
     public Animal getSecondToTheTopAnimal () {
         Animal topAnimal = animals.poll();
-        Animal secondToTheTopAnimal = animals.poll();
+        Animal secondToTheTopAnimal = animals.peek();
         animals.offer (topAnimal);
         return secondToTheTopAnimal;
     }
@@ -46,6 +48,14 @@ public class AnimalCluster {
 
     public String toString () {
         return getTopAnimal().toString();
+    }
+
+    public List<Animal> getClusterAsList () {
+        List<Animal> animalList = new LinkedList<>();
+        for (Animal animal : animals) {
+            animalList.add(animal);
+        }
+        return animalList;
     }
 
 

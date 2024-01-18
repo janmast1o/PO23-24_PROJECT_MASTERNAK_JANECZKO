@@ -10,10 +10,13 @@ public class AnimalInformation {
 
     private HashSet<Animal> children;
 
+    private int deathDate;
+
     protected AnimalInformation () {
         lifetime = 0;
         numberOfEatenPlants = 0;
         children = new HashSet<>();
+        deathDate = -1;
     }
 
     protected int getLifetime () {
@@ -42,6 +45,14 @@ public class AnimalInformation {
 
     protected void ageByADay () {
         lifetime++;
+    }
+
+    protected int getDeathDate () {
+        return deathDate;
+    }
+
+    protected void setDeathDate (int deathDate) {
+        this.deathDate = deathDate;
     }
 
 }

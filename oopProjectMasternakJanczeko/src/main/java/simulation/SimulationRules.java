@@ -5,6 +5,5 @@ public record SimulationRules (int plantNutritionalValue,
                                int energyLostAfterReproduction,
                                int minNumberOfMutations,
                                int maxNumberOfMutations,
-                               int numberOfNewPlantsPerDay,
-                               int equatorSpan) {
+                               int numberOfNewPlantsPerDay) {
 }

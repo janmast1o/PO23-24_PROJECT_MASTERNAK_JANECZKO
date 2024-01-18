@@ -2,6 +2,7 @@ package animal;
 
 import model.Position;
 import model.WorldDirection;
+import presenter.UIAnimalTracker;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +21,8 @@ public class Animal {
     private int energy;
 
     private AnimalInformation animalInformation;
+
+    private UIAnimalTracker animalTracker;
 
     public Animal (Position postition, ArrayList<Integer> genome, int energy) {
         this.position = postition;
@@ -60,8 +63,13 @@ public class Animal {
         return animalInformation.getChildren();
     }
 
+    public ArrayList<Integer> getGenome () {
+        return genome;
+    }
+
     public void incrementActiveGene () {
         activeGene = (activeGene+1)% genome.size();
+        changesOccured();
     }
 
     public Position previewMovement () {
@@ -73,20 +81,25 @@ public class Animal {
         direction = direction.performNextNTimes(genome.get(activeGene));
         position = position.addPostition (direction.toVector());
         energy--;
+        changesOccured();
     }
 
     public void turnAround () {
-        this.direction = direction.performNextNTimes(4);
+        direction = direction.performNextNTimes(genome.get(activeGene));
+        direction = direction.performNextNTimes(4);
         energy--;
+        changesOccured();
     }
 
     public void teleport (Position newPosition) {
         position = newPosition;
         energy--;
+        changesOccured();
     }
 
     public void addChild (Animal child) {
         animalInformation.addChild (child);
+        changesOccured();
     }
 
     public boolean isAlive () {
@@ -95,6 +108,7 @@ public class Animal {
 
     public void registerPlantConsumption () {
         animalInformation.registerPlantConsumption();
+        changesOccured();
     }
 
     public int getNumberOfChildren () {
@@ -107,10 +121,12 @@ public class Animal {
 
     public void replenishEnergy (int energy) {
         this.energy += energy;
+        changesOccured();
     }
 
     public void drainEnergy (int energy) {
         this.energy -= energy;
+        changesOccured();
     }
 
     public boolean hasSufficientEnergy (int sufficientEnergy) {
@@ -119,11 +135,35 @@ public class Animal {
 
     public void ageByADay () {
         animalInformation.ageByADay();
+        changesOccured();
     }
 
     @Override
     public String toString () {
         return direction.toString();
+    }
+
+    public void setDeathDate (int deathDate) {
+        animalInformation.setDeathDate(deathDate);
+        changesOccured();
+    }
+
+    public int getDeathDate () {
+        return animalInformation.getDeathDate();
+    }
+
+    public void setTracker (UIAnimalTracker animalTracker) {
+        this.animalTracker = animalTracker;
+    }
+
+    public void removeTracker () {
+        animalTracker = null;
+    }
+
+    private void changesOccured () {
+        if (animalTracker != null) {
+            animalTracker.animalChanged(genome,activeGene,energy,getNumberOfEatenPlants(),getNumberOfChildren(),getLifeTime(),getDeathDate());
+        }
     }
 
 }

@@ -1,86 +1,159 @@
-import javafx.application.Application;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import org.w3c.dom.Text;
-import presenter.SimulationApp;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import presenter.SimulationPresenter;
 import simulation.Simulation;
-import simulation.SimulationInitializer;
-import util.Parser;
+import util.SimulationInitializer;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LaunchWindow {
 
     @FXML
-    TextField mapWidth;
+    private Spinner<Integer> mapWidth;
 
     @FXML
-    TextField mapHeight;
+    private Spinner<Integer> mapHeight;
 
     @FXML
-    TextField initialNumberOfPlants;
+    private ComboBox<String> mapVariant;
 
     @FXML
-    TextField initialNumberOfAnimals;
+    private Spinner<Integer> initialNumberOfPlants;
 
     @FXML
-    TextField startingEnergy;
+    private Spinner<Integer> plantsNutritionalValue;
 
     @FXML
-    TextField plantsNutritionalValue;
+    private Spinner<Integer> numberOfPlantsGrownPerDay;
 
     @FXML
-    TextField sufficientReproductionEnergy;
+    private ComboBox<String> plantGrowthVariant;
 
     @FXML
-    TextField energyLostAfterReproduction;
+    private Spinner<Integer> initialNumberOfAnimals;
 
     @FXML
-    TextField lengthOfTheGenome;
+    private Spinner<Integer> startingEnergy;
 
     @FXML
-    TextField minNumberOfMutations;
+    private Spinner<Integer> sufficientReproductionEnergy;
 
     @FXML
-    TextField maxNumberOfMutations;
+    private Spinner<Integer> energyLostAfterReproduction;
 
     @FXML
-    TextField equatorSpan;
+    private Spinner<Integer> minNumberOfMutations;
 
     @FXML
-    TextField numberOfPlantsGrownPerDay;
+    private Spinner<Integer> maxNumberOfMutations;
 
+    @FXML
+    private ComboBox<String> mutationVariant;
 
-    private int getInput (TextField field) {
-        int parsed = 0;
+    @FXML
+    private Spinner<Integer> lengthOfTheGenome;
+
+    @FXML
+    private ComboBox<String> animalBehaviorVariant;
+
+    @FXML
+    private Label wrongInputErrorMessage;
+
+    private int getSpinner(Spinner<Integer> spinner) {
+        return (int) spinner.getValue();
+    }
+
+    private String getMutationMode() {
+        if (mutationVariant.toString().equals("Full randomness")) {
+            return "default";
+        }
+        return "alternative";
+    }
+
+    private String getPlantGrowthMode() {
+        if (plantGrowthVariant.toString().equals("Forested equator")) {
+            return "default";
+        }
+        return "alternative";
+    }
+
+    private void openNewSimulationWindow (Simulation newSimulation) {
         try {
-            parsed = Parser.parse (field.getText().split(""));
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
+            BorderPane root = loader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root, 400, 300);
+            SimulationPresenter simulationPresenter = loader.getController();
+            simulationPresenter.setSimulation(newSimulation);
+            simulationPresenter.assignANewListenerAndObserverToSimulation();
+
+            stage.setTitle("Simulation Window");
+            stage.setScene(scene);
+            stage.minWidthProperty().bind(root.minWidthProperty());
+            stage.minHeightProperty().bind(root.minHeightProperty());
+
+            stage.show();
+
+        }
+        catch(Exception e){
+            System.out.println("Can't load new window: " + e.getMessage());
+        }
+
+    }
+
+    private void catchWrongInputs() throws IllegalArgumentException {
+        if (getSpinner(numberOfPlantsGrownPerDay) > getSpinner(mapWidth)*getSpinner(mapHeight)) {
+            throw new IllegalArgumentException("the number of plants grown per day cannot be greater than the size of the map");
+        }
+        else if (getSpinner(initialNumberOfPlants) > getSpinner(mapWidth)*getSpinner(mapHeight)) {
+            throw new IllegalArgumentException("the initial number of plants cannot be greater than the size of the map");
+        }
+        else if (getSpinner(energyLostAfterReproduction) > getSpinner(sufficientReproductionEnergy)) {
+            throw new IllegalArgumentException("energy lost after reproduction cannot be greater than the amount of energy sufficient to reproduce");
+        }
+        else if (getSpinner(minNumberOfMutations) > getSpinner(maxNumberOfMutations)) {
+            throw new IllegalArgumentException("the min number of mutations cannot be greater than the max number of mutations");
+        }
+        else if (getSpinner(maxNumberOfMutations) > getSpinner(lengthOfTheGenome)) {
+            throw new IllegalArgumentException("the max number of mutations cannot be greater than the size of the animals' genomes");
+        }
+    }
+
+    public void onStartClicked() {
+        try {
+            catchWrongInputs();
+            Simulation newSimulation = SimulationInitializer.initialize(
+                    getSpinner(mapWidth),
+                    getSpinner(mapHeight),
+                    getSpinner(initialNumberOfPlants),
+                    getSpinner(initialNumberOfAnimals),
+                    getSpinner(startingEnergy),
+                    getSpinner(plantsNutritionalValue),
+                    getSpinner(sufficientReproductionEnergy),
+                    getSpinner(lengthOfTheGenome),
+                    getSpinner(minNumberOfMutations),
+                    getSpinner(maxNumberOfMutations),
+                    getSpinner(energyLostAfterReproduction),
+                    getSpinner(numberOfPlantsGrownPerDay),
+                    getMutationMode(),
+                    getPlantGrowthMode()
+            );
+
+            openNewSimulationWindow(newSimulation);
+            wrongInputErrorMessage.setText("");
         }
         catch (IllegalArgumentException exception) {
-            System.exit(1);
+            wrongInputErrorMessage.setText(exception.getMessage());
         }
-        return parsed;
-    }
-
-    public void onStartClicked () {
-        SimulationInitializer simulationInitializer = new SimulationInitializer (
-                getInput(mapWidth),
-                getInput(mapHeight),
-                getInput(initialNumberOfPlants),
-                getInput(initialNumberOfAnimals),
-                getInput(startingEnergy),
-                getInput(plantsNutritionalValue),
-                getInput(sufficientReproductionEnergy),
-                getInput(lengthOfTheGenome),
-                getInput(minNumberOfMutations),
-                getInput(maxNumberOfMutations),
-                getInput(energyLostAfterReproduction),
-                getInput(equatorSpan),
-                getInput(numberOfPlantsGrownPerDay)
-        );
-
-        Simulation simulation = simulationInitializer.initializeSimulation();
-        Application.launch(SimulationApp.class);
 
     }
-
 }

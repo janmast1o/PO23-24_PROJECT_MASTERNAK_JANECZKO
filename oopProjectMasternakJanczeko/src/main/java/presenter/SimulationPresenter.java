@@ -58,6 +58,9 @@ public class SimulationPresenter {
     private Label animalTrackerErrorMessage;
 
     @FXML
+    private Label animalPosition;
+
+    @FXML
     private Label animalGenome;
 
     @FXML
@@ -158,8 +161,9 @@ public class SimulationPresenter {
     }
 
 
-    public void drawGrid (WorldMap worldMap) throws InterruptedException {
+    public void updateMapGrid() throws InterruptedException {
         clearGrid();
+        WorldMap worldMap = simulation.getWorldMap();
         int a = worldMap.getBoundaries().lowerLeft().x();
         int b = worldMap.getBoundaries().lowerLeft().y();
         int c = worldMap.getBoundaries().upperRight().x();
@@ -176,9 +180,14 @@ public class SimulationPresenter {
                 Text cellText = new Text("");
                 cellText.setText (worldMap.objectAtToString(new Position(i,j)));
 
+                //color depending on the level of energy/ purple if the animal on the particular fields is being tracked
                 if (!cellText.getText().equals("") && !cellText.getText().equals("*")) {
                     cellText.setFill(WHITE);
-                    if (worldMap.getTopAnimalAt(new Position(i,j)).getEnergy() <= 5) {
+
+                    if (worldMap.getTopAnimalAt(new Position(i,j)) != null && worldMap.getTopAnimalAt(new Position(i,j)).isBeingTracked()) {
+                        cell.setFill(PURPLE);
+                    }
+                    else if (worldMap.getTopAnimalAt(new Position(i,j)).getEnergy() <= 5) {
                         cell.setFill(DARKRED);
                     }
                     else if (worldMap.getTopAnimalAt(new Position(i,j)).getEnergy() <= 10) {
@@ -230,7 +239,8 @@ public class SimulationPresenter {
         this.averageNumberOfChildren.setText(BigDecimal.valueOf(averageNumberOfChildren).setScale(4)+"");
     }
 
-    public void changeAnimalInformation (ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate, int numberOfDescendants) throws InterruptedException {
+    public void changeAnimalInformation (Position animalPosition, ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate, int numberOfDescendants) throws InterruptedException {
+        this.animalPosition.setText(animalPosition+"");
         animalGenome.setText(genome+"");
         activeIndex.setText(activeGene+"");
         this.energy.setText(energy+"");
@@ -288,6 +298,7 @@ public class SimulationPresenter {
 
     public void onUntrackClicked () {
         simulation.stopTracking();
+        animalPosition.setText("N/A");
         animalGenome.setText("N/A");
         activeIndex.setText("N/A");
         energy.setText("N/A");
@@ -308,6 +319,7 @@ public class SimulationPresenter {
 
     public void onShowAnimalsWithTheMostPopularGeneClicked () {
         if (simulation.isStopped() && !mostPopularGene.getText().equals("N/A")) {
+            alternativeViewErrorMessage.setText("");
             Set<Position> positionsOfTheAnimalsWithTheMostPopularGene = simulation.getPositionsOfAnimalsWithACertainGene(Parser.parse(mostPopularGene.getText()));
 
             clearGrid();
@@ -345,13 +357,17 @@ public class SimulationPresenter {
             alternativeViewErrorMessage.setText("");
 
         }
-        else {
+        else if (!simulation.isStopped()) {
            alternativeViewErrorMessage.setText("Please stop the simulation first");
+        }
+        else {
+            alternativeViewErrorMessage.setText("What gene is the most popular has not been determined yet");
         }
     }
 
     public void onShowFieldsPreferredByPlantsClicked () {
         if (simulation.isStopped()) {
+            alternativeViewErrorMessage.setText("");
             Set<Position> preferredFields = simulation.getFieldsPreferredByPlants();
 
             clearGrid();
@@ -388,6 +404,42 @@ public class SimulationPresenter {
             }
             alternativeViewErrorMessage.setText("");
 
+        }
+        else {
+            alternativeViewErrorMessage.setText("Please stop the simulation first");
+        }
+    }
+
+    public void onShowAllPlantsClicked () {
+        if (simulation.isStopped()) {
+            alternativeViewErrorMessage.setText("");
+            clearGrid();
+            WorldMap worldMap = simulation.getWorldMap();
+            int a = worldMap.getBoundaries().lowerLeft().x();
+            int b = worldMap.getBoundaries().lowerLeft().y();
+            int c = worldMap.getBoundaries().upperRight().x();
+            int d = worldMap.getBoundaries().upperRight().y();
+            double gridCellWidth = GridCellWidthCalculation.determineGridCellWidth(Math.max(c - a + 1, d - b + 1));
+
+            drawBorder(a, b, c, d);
+
+            for (int j = d; j >= b; j--) {
+                for (int i = a; i <= c; i++) {
+                    Rectangle cell = new Rectangle(gridCellWidth, gridCellWidth);
+                    cell.setStroke(BLACK);
+                    cell.setFill(TRANSPARENT);
+                    Text cellText = new Text("");
+                    cellText.setText(worldMap.plantAtToString(new Position(i, j)));
+
+                    StackPane cellPane = new StackPane();
+                    cellPane.getChildren().addAll(cell, cellText);
+
+                    GridPane.setRowIndex(cellPane, d - j + 1);
+                    GridPane.setColumnIndex(cellPane, i);
+
+                    mapGrid.getChildren().add(cellPane);
+                }
+            }
         }
         else {
             alternativeViewErrorMessage.setText("Please stop the simulation first");

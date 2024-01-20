@@ -1,8 +1,6 @@
 package presenter;
 
 import javafx.application.Platform;
-import model.Position;
-import model.WorldMap;
 
 public class UIMapListenerAndObserver implements MapChangeListener, SimulationObserver {
 
@@ -13,10 +11,10 @@ public class UIMapListenerAndObserver implements MapChangeListener, SimulationOb
     }
 
     @Override
-    public synchronized void mapChanged (WorldMap map, Position position) {
+    public synchronized void mapChanged () {
         Platform.runLater(()-> {
             try {
-                presenter.drawGrid(map);
+                presenter.updateMapGrid();
             }
             catch (InterruptedException exception) {
                 System.exit(1);

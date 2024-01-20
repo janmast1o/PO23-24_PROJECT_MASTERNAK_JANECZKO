@@ -14,49 +14,49 @@
             fx:controller="presenter.SimulationPresenter">
 
     <left>
-           <VBox spacing="5">
+           <VBox spacing="3.2">
 
                <VBox spacing="3">
                    <Label text="Day: "/>
                    <Label fx:id="dayCounter" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Number of alive animals on the map: "/>
                    <Label fx:id="numberOfAliveAnimals" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Number of plants growing on the map: "/>
                    <Label fx:id="numberOfPlants" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Number of fields occupied by no animals: "/>
                    <Label fx:id="numberOfUnoccupiedFields" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="The most popular type of gene: "/>
                    <Label fx:id="mostPopularGene" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Average level of energy among the animals :"/>
                    <Label fx:id="averageEnergy" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Average lifetime among the already buried animals: "/>
                    <Label fx:id="averageLifetime" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Average number of children among all animals to ever appear on the map: "/>
                    <Label fx:id="averageNumberOfChildren" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label/>
                    <Label text="Choose coordinates of an animal to track:"/>
                    <HBox spacing="2">
@@ -67,42 +67,47 @@
                    </HBox>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
+                   <Label text="Animal's position:"/>
+                   <Label fx:id="animalPosition" text="N/A" style="-fx-font-weight: bold;"/>
+               </VBox>
+
+               <VBox spacing="3">
                    <Label text="Animal's genome:"/>
                    <Label fx:id="animalGenome" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox>
+               <VBox spacing="3">
                    <Label text="Active index:"/>
                    <Label fx:id="activeIndex" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Animal's energy:"/>
                    <Label fx:id="energy" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Animal's number of eaten plants:"/>
                    <Label fx:id="numberOfEatenPlants" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Animal's number of children:"/>
                    <Label fx:id="numberOfChildren" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Number of animal's descendants:"/>
                    <Label fx:id="animalDescendants" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Animal's lifetime:"/>
                    <Label fx:id="animalLifetime" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
 
-               <VBox spacing="4">
+               <VBox spacing="3">
                    <Label text="Animal's death date:"/>
                    <Label fx:id="animalDeathDate" text="N/A" style="-fx-font-weight: bold;"/>
                </VBox>
@@ -127,6 +132,7 @@
                     <Button fx:id="resumeButton" text="Resume" onAction="#onResumeClicked"/>
                     <Button fx:id="showAnimalsWithTheMostPopularGeneButton" text="Show animals with the most popular gene" onAction="#onShowAnimalsWithTheMostPopularGeneClicked"/>
                     <Button fx:id="showPreferredFields" text="Show fields preferred by plants" onAction="#onShowFieldsPreferredByPlantsClicked"/>
+                    <Button fx:id="showPlantsButton" text="Show all plants" onAction="#onShowAllPlantsClicked"/>
                     <Button fx:id="terminationButton" text="Terminate" onAction="#onTerminateClicked"/>
                 </HBox>
                 <Label fx:id="alternativeViewErrorMessage" alignment="CENTER" text="" style="-fx-font-size: 11; -fx-text-fill: red;"/>

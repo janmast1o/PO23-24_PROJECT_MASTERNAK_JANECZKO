@@ -5,6 +5,6 @@ import model.WorldMap;
 
 public interface MapChangeListener {
 
-    void mapChanged (WorldMap map, Position position);
+    void mapChanged ();
 
 }

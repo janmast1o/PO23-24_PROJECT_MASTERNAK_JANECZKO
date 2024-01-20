@@ -80,12 +80,12 @@ public class WorldMap {
 
     public void growAPlant (Position position, Integer nutritionalValue) {
         plants.put (position,nutritionalValue);
-        changesOccurred(position);
+        changesOccurred();
     }
 
     public void removePlant (Position position) {
         plants.remove (position);
-        changesOccurred(position);
+        changesOccurred();
     }
 
     public void placeAnimal (Position position, Animal animal) {
@@ -93,7 +93,7 @@ public class WorldMap {
             animalClusters.put(position,new AnimalCluster());
         }
         animalClusters.get(position).addAnimal(animal);
-        changesOccurred(position);
+        changesOccurred();
     }
 
     public void removeAnimal (Position position, Animal animal) {
@@ -101,7 +101,7 @@ public class WorldMap {
         if (!isOccupiedByAnimals(position)) {
             animalClusters.remove (position);
         }
-        changesOccurred(position);
+        changesOccurred();
     }
 
     public void moveAnimal (Position oldPosition, Position newPosition, Animal animal) {
@@ -110,7 +110,7 @@ public class WorldMap {
     }
 
     public void animalTurnedAround (Position position) {
-        changesOccurred(position);
+        changesOccurred();
     }
 
     public void registerDeathOfAnAnimal (Position position, Animal animal) {
@@ -148,12 +148,18 @@ public class WorldMap {
         return animalClusters.containsKey(position) && !animalClusters.get(position).isEmpty();
     }
 
-    public Animal getTopAnimalAt (Position position) throws NullPointerException {
-        return animalClusters.get(position).getTopAnimal();
+    public Animal getTopAnimalAt (Position position) {
+        if (isOccupiedByAnimals(position)) {
+            return animalClusters.get(position).getTopAnimal();
+        }
+        else return null;
     }
 
     public Animal getSecondToTheTopAnimalAt (Position position) {
-        return animalClusters.get(position).getSecondToTheTopAnimal();
+        if (isOccupiedByAnimals(position)) {
+            return animalClusters.get(position).getSecondToTheTopAnimal();
+        }
+        else return null;
     }
 
     public Integer getPlantsNutritionalValueAt (Position position) {
@@ -186,9 +192,9 @@ public class WorldMap {
         this.listener = null;
     }
 
-    private void changesOccurred (Position position) {
+    private void changesOccurred () {
         if (listener != null) {
-            listener.mapChanged(this, position);
+            listener.mapChanged();
         }
     }
 
@@ -197,6 +203,15 @@ public class WorldMap {
             return getTopAnimalAt(position).toString();
         }
         else if (isOccupiedByPlants(position)) {
+            return "*";
+        }
+        else {
+            return "";
+        }
+    }
+
+    public String plantAtToString (Position position) {
+        if (isOccupiedByPlants(position)) {
             return "*";
         }
         else {

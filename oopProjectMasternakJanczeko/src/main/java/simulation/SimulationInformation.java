@@ -1,13 +1,9 @@
 package simulation;
 
 import animal.Animal;
-import animal.AnimalDeathCertificate;
-import model.Position;
 import model.WorldMap;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class SimulationInformation {
 

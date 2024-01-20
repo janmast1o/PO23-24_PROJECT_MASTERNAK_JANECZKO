@@ -22,5 +22,9 @@ public record Position (int x, int y) {
         return this.x >= otherPosition.x && this.y >= otherPosition.y;
     }
 
+    public String toString () {
+        return "x = " + x + "; y = " + y;
+    }
+
 
 }

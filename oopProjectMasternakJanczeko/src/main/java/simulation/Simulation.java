@@ -96,12 +96,10 @@ public class Simulation implements Runnable {
         if (animalToTrack != null) {
             animalToTrack.removeTracker();
         }
-        try {
-            animalToTrack = worldMap.getTopAnimalAt(position);
+        animalToTrack = worldMap.getTopAnimalAt(position);
+        if (animalToTrack != null) {
             animalToTrack.setTracker(new UIAnimalTracker(simulationPresenter));
-        }
-        catch (NullPointerException exception) {
-            ;
+            animalToTrack.changesOccurred();
         }
     }
 

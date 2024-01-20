@@ -1,6 +1,7 @@
 package presenter;
 
 import javafx.application.Platform;
+import model.Position;
 
 import java.util.ArrayList;
 
@@ -12,11 +13,11 @@ public class UIAnimalTracker {
         this.simulationPresenter = simulationPresenter;
     }
 
-    public void animalChanged (ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate, int numberOfDescendants) {
+    public void animalChanged (Position animalPosition, ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate, int numberOfDescendants) {
         Platform.runLater(()-> {
             try {
                 simulationPresenter.changeAnimalInformation(
-                        genome,activeGene,energy,numberOfEatenPlants,numberOfChildren,lifetime,deathDate,numberOfDescendants
+                        animalPosition,genome,activeGene,energy,numberOfEatenPlants,numberOfChildren,lifetime,deathDate,numberOfDescendants
                 );
             }
             catch (InterruptedException exception) {

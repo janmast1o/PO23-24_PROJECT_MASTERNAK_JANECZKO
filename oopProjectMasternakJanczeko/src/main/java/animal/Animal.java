@@ -161,9 +161,13 @@ public class Animal {
         animalTracker = null;
     }
 
-    private void changesOccurred() {
+    public boolean isBeingTracked () {
+        return animalTracker != null;
+    }
+
+    public void changesOccurred() {
         if (animalTracker != null) {
-            animalTracker.animalChanged(genome,activeGene,energy,getNumberOfEatenPlants(),getNumberOfChildren(),getLifeTime(),getDeathDate(), NumberOfDescendantsFinder.findNumberOfDescendants(this));
+            animalTracker.animalChanged(position,genome,activeGene,energy,getNumberOfEatenPlants(),getNumberOfChildren(),getLifeTime(),getDeathDate(), NumberOfDescendantsFinder.findNumberOfDescendants(this));
         }
     }
 

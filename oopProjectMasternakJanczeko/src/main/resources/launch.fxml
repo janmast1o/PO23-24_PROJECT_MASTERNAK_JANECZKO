@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 
+<?import javafx.scene.text.Text?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="600" minWidth="600"
@@ -16,7 +17,7 @@
         </VBox>
     </top>
 
-    <center>
+    <left>
         <VBox spacing="3">
             <HBox spacing="3">
                 <Label text="Map width:"/>
@@ -127,8 +128,31 @@
             <HBox spacing="3">
                 <Button fx:id="startButton" text="Start" onAction="#onStartClicked"/>
             </HBox>
+
+            <CheckBox fx:id="shouldDataBeSaved" text="Save simulation data"/>
+
+            <HBox spacing="3">
+                <Label text="If you want data to be saved please provide information under what name it should be saved: "/>
+                <TextField fx:id="saveDataFileName" prefWidth="85"/>
+            </HBox>
         </VBox>
 
-    </center>
+    </left>
+
+    <bottom>
+        <VBox spacing="3" alignment="BOTTOM_CENTER">
+            <HBox spacing="3">
+                <Label text="Under what name should the configuration be saved? "/>
+                <TextField fx:id="saveConfigField" prefWidth="85"/>
+                <Button text="Save configuration" onAction="#onSaveConfigClicked"/>
+            </HBox>
+            <HBox spacing="3">
+                <Label text="Specify the name of the configuration you would like to load: "/>
+                <TextField fx:id="loadConfigField" prefWidth="85"/>
+                <Button text="Load configuration" onAction="#onLoadConfigClicked"/>
+            </HBox>
+            <Label/>
+        </VBox>
+    </bottom>
 
 </BorderPane>

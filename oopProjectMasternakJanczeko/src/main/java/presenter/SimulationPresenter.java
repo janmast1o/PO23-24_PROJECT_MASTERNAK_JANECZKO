@@ -1,6 +1,7 @@
 package presenter;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -12,6 +13,7 @@ import model.WorldMap;
 import simulation.Simulation;
 import util.GridCellWidthCalculation;
 import util.Parser;
+import util.SimulationFileWriter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -55,7 +57,7 @@ public class SimulationPresenter {
     private TextField animalTrackerYCoord;
 
     @FXML
-    private Label animalTrackerErrorMessage;
+    private Label simulationErrorMessage;
 
     @FXML
     private Label animalPosition;
@@ -84,13 +86,11 @@ public class SimulationPresenter {
     @FXML
     private Label animalDescendants;
 
-    @FXML
-    private Label alternativeViewErrorMessage;
-
-
     private Simulation simulation;
 
     private Thread simulationThread;
+
+    private String saveFileName;
 
     private boolean started = false;
 
@@ -99,6 +99,10 @@ public class SimulationPresenter {
 
     public void setSimulation (Simulation simulation) {
         this.simulation = simulation;
+    }
+
+    public void setSaveFileName (String saveFileName) {
+        this.saveFileName = saveFileName;
     }
 
     public void assignANewListenerAndObserverToSimulation() {
@@ -237,6 +241,21 @@ public class SimulationPresenter {
         this.averageEnergy.setText(BigDecimal.valueOf(averageEnergy).setScale(4) + "");
         this.averageLifetime.setText(BigDecimal.valueOf(averageLifetime).setScale(4)+"");
         this.averageNumberOfChildren.setText(BigDecimal.valueOf(averageNumberOfChildren).setScale(4)+"");
+
+        if (saveFileName != null) {
+            String[] savedSimulationData = {
+                    "Day: " + day,
+                    "Number of animals: " + numberOfAnimals,
+                    "Number of plants: " + numberOfPlants,
+                    "Most popular gene: " + mostPopularGene,
+                    "Average energy: " + averageEnergy,
+                    "Average lifetime among the already buried animals: " + averageLifetime,
+                    "Average number of children: " + averageNumberOfChildren,
+                    "Number of unoccupied fields: " + numberOfUnoccupiedFields,
+                    " "
+            };
+            SimulationFileWriter.saveToFile("saved_simulation_data",saveFileName,savedSimulationData,true);
+        }
     }
 
     public void changeAnimalInformation (Position animalPosition, ArrayList<Integer> genome, int activeGene, int energy, int numberOfEatenPlants, int numberOfChildren, int lifetime, int deathDate, int numberOfDescendants) throws InterruptedException {
@@ -278,19 +297,19 @@ public class SimulationPresenter {
 
     public void onTrackClicked () {
         if (!simulation.isStopped()) {
-            animalTrackerErrorMessage.setText("Please stop the simulation first");
+            simulationErrorMessage.setText("Please stop the simulation first");
         }
         else {
             try {
                 trackCatchErrors ();
-                animalTrackerErrorMessage.setText("");
+                simulationErrorMessage.setText("");
                 int x = Parser.parse(animalTrackerXCoord.getText());
                 int y = Parser.parse(animalTrackerYCoord.getText());
                 Position position = new Position(x,y);
                 simulation.startTracking(position,this);
             }
             catch (IllegalArgumentException exception) {
-                animalTrackerErrorMessage.setText("Wrong input");
+                simulationErrorMessage.setText("Wrong input");
             }
         }
 
@@ -319,7 +338,7 @@ public class SimulationPresenter {
 
     public void onShowAnimalsWithTheMostPopularGeneClicked () {
         if (simulation.isStopped() && !mostPopularGene.getText().equals("N/A")) {
-            alternativeViewErrorMessage.setText("");
+            simulationErrorMessage.setText("");
             Set<Position> positionsOfTheAnimalsWithTheMostPopularGene = simulation.getPositionsOfAnimalsWithACertainGene(Parser.parse(mostPopularGene.getText()));
 
             clearGrid();
@@ -354,20 +373,20 @@ public class SimulationPresenter {
                     mapGrid.getChildren().add(cellPane);
                 }
             }
-            alternativeViewErrorMessage.setText("");
+            simulationErrorMessage.setText("");
 
         }
         else if (!simulation.isStopped()) {
-           alternativeViewErrorMessage.setText("Please stop the simulation first");
+           simulationErrorMessage.setText("Please stop the simulation first");
         }
         else {
-            alternativeViewErrorMessage.setText("What gene is the most popular has not been determined yet");
+            simulationErrorMessage.setText("What gene is the most popular has not been determined yet");
         }
     }
 
     public void onShowFieldsPreferredByPlantsClicked () {
         if (simulation.isStopped()) {
-            alternativeViewErrorMessage.setText("");
+            simulationErrorMessage.setText("");
             Set<Position> preferredFields = simulation.getFieldsPreferredByPlants();
 
             clearGrid();
@@ -402,17 +421,17 @@ public class SimulationPresenter {
                     mapGrid.getChildren().add(cellPane);
                 }
             }
-            alternativeViewErrorMessage.setText("");
+            simulationErrorMessage.setText("");
 
         }
         else {
-            alternativeViewErrorMessage.setText("Please stop the simulation first");
+            simulationErrorMessage.setText("Please stop the simulation first");
         }
     }
 
     public void onShowAllPlantsClicked () {
         if (simulation.isStopped()) {
-            alternativeViewErrorMessage.setText("");
+            simulationErrorMessage.setText("");
             clearGrid();
             WorldMap worldMap = simulation.getWorldMap();
             int a = worldMap.getBoundaries().lowerLeft().x();
@@ -442,7 +461,7 @@ public class SimulationPresenter {
             }
         }
         else {
-            alternativeViewErrorMessage.setText("Please stop the simulation first");
+            simulationErrorMessage.setText("Please stop the simulation first");
         }
     }
 

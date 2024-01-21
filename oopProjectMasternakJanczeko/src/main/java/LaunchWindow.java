@@ -1,18 +1,18 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 import presenter.SimulationPresenter;
 import simulation.Simulation;
+import util.Parser;
+import util.SimulationFileReader;
+import util.SimulationFileWriter;
 import util.SimulationInitializer;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LaunchWindow {
 
@@ -67,8 +67,24 @@ public class LaunchWindow {
     @FXML
     private Label wrongInputErrorMessage;
 
+    @FXML
+    private TextField saveConfigField;
+
+    @FXML
+    private TextField loadConfigField;
+
+    @FXML
+    private CheckBox shouldDataBeSaved;
+
+    @FXML
+    private TextField saveDataFileName;
+
     private int getSpinner(Spinner<Integer> spinner) {
         return (int) spinner.getValue();
+    }
+
+    private void setSpinner (Spinner<Integer> spinner, int spinnerValue) {
+        spinner.getValueFactory().setValue(spinnerValue);
     }
 
     private String getMutationMode() {
@@ -85,7 +101,7 @@ public class LaunchWindow {
         return "alternative";
     }
 
-    private void openNewSimulationWindow (Simulation newSimulation) {
+    private void openNewSimulationWindow (Simulation newSimulation, String fileName) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
@@ -95,6 +111,9 @@ public class LaunchWindow {
             SimulationPresenter simulationPresenter = loader.getController();
             simulationPresenter.setSimulation(newSimulation);
             simulationPresenter.assignANewListenerAndObserverToSimulation();
+            if (fileName != null) {
+                simulationPresenter.setSaveFileName(fileName);
+            }
 
             stage.setTitle("Simulation Window");
             stage.setScene(scene);
@@ -126,6 +145,9 @@ public class LaunchWindow {
         else if (getSpinner(maxNumberOfMutations) > getSpinner(lengthOfTheGenome)) {
             throw new IllegalArgumentException("the max number of mutations cannot be greater than the size of the animals' genomes");
         }
+        else if (shouldDataBeSaved.isSelected() && (saveDataFileName.getText().equals("") || saveDataFileName.getText().contains("/"))) {
+            throw new IllegalArgumentException("The name of the file should not be of length 0 and should not contain '/'");
+        }
     }
 
     public void onStartClicked() {
@@ -148,7 +170,31 @@ public class LaunchWindow {
                     getPlantGrowthMode()
             );
 
-            openNewSimulationWindow(newSimulation);
+            if (!shouldDataBeSaved.isSelected()) {
+                openNewSimulationWindow(newSimulation,null);
+            }
+            else {
+                String[] simulationDetails = {
+                        "Simulation started on: " + LocalDateTime.now(),
+                        "Map width: " + getSpinner(mapWidth),
+                        "Map height: " + getSpinner(mapHeight),
+                        "Initial number of plants: " + getSpinner(initialNumberOfPlants),
+                        "Initial number of animals: " + getSpinner(initialNumberOfAnimals),
+                        "Starting energy of those animals: " + getSpinner(startingEnergy),
+                        "Plant's nutritional value: " + getSpinner(plantsNutritionalValue),
+                        "Sufficient reproduction energy" + getSpinner(sufficientReproductionEnergy),
+                        "Energy lost after reproduction: " + getSpinner(energyLostAfterReproduction),
+                        "Length of the genome: " + getSpinner(lengthOfTheGenome),
+                        "Min number of mutations: " + getSpinner(minNumberOfMutations),
+                        "Max number of mutations: " + getSpinner(maxNumberOfMutations),
+                        "Number of plants grown each day" + getSpinner(numberOfPlantsGrownPerDay),
+                        "Mutation mode: " + getMutationMode(),
+                        "PlantGrowthMode: " + getPlantGrowthMode(),
+                        " "
+                };
+                SimulationFileWriter.saveToFile("saved_simulation_data",saveDataFileName.getText(),simulationDetails,true);
+                openNewSimulationWindow(newSimulation,saveDataFileName.getText());
+            }
             wrongInputErrorMessage.setText("");
         }
         catch (IllegalArgumentException exception) {
@@ -156,4 +202,46 @@ public class LaunchWindow {
         }
 
     }
+
+    public void onSaveConfigClicked() {
+        String fileName = saveConfigField.getText();
+        if (!fileName.equals("")) {
+            String[] savedConfig = {
+                    String.valueOf(getSpinner(mapWidth)),
+                    String.valueOf(getSpinner(mapHeight)),
+                    String.valueOf(getSpinner(initialNumberOfPlants)),
+                    String.valueOf(getSpinner(initialNumberOfAnimals)),
+                    String.valueOf(getSpinner(startingEnergy)),
+                    String.valueOf(getSpinner(plantsNutritionalValue)),
+                    String.valueOf(getSpinner(sufficientReproductionEnergy)),
+                    String.valueOf(getSpinner(energyLostAfterReproduction)),
+                    String.valueOf(getSpinner(lengthOfTheGenome)),
+                    String.valueOf(getSpinner(minNumberOfMutations)),
+                    String.valueOf(getSpinner(maxNumberOfMutations)),
+                    String.valueOf(getSpinner(numberOfPlantsGrownPerDay))
+            };
+            SimulationFileWriter.saveToFile("saved_configurations", fileName, savedConfig, false);
+        }
+        else {
+            wrongInputErrorMessage.setText("Please type in a valid name");
+        }
+    }
+
+    public void onLoadConfigClicked() {
+        String fileName = loadConfigField.getText();
+        ArrayList<String> savedConfig = SimulationFileReader.readFile("saved_configurations",fileName);
+        if (savedConfig != null) {
+            List<Spinner<Integer>> spinners = List.of (
+                    mapWidth, mapHeight, initialNumberOfPlants, initialNumberOfAnimals, startingEnergy, plantsNutritionalValue,
+                    sufficientReproductionEnergy, energyLostAfterReproduction, lengthOfTheGenome,
+                    minNumberOfMutations, maxNumberOfMutations, numberOfPlantsGrownPerDay
+            );
+            int i = 0;
+            for (Spinner spinner : spinners) {
+                setSpinner(spinner, Parser.parse(savedConfig.get(i)));
+                i++;
+            }
+        }
+    }
+
 }

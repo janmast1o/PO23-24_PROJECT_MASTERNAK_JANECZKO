@@ -1,5 +1,5 @@
 import javafx.application.Application;
-import util.FileWriter;
+import util.SimulationFileWriter;
 
 public class DarwinWorldGUI {
 

@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.CheckBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="770.5" minWidth="1005.5"
@@ -135,13 +136,13 @@
                     <Button fx:id="showPlantsButton" text="Show all plants" onAction="#onShowAllPlantsClicked"/>
                     <Button fx:id="terminationButton" text="Terminate" onAction="#onTerminateClicked"/>
                 </HBox>
-                <Label fx:id="alternativeViewErrorMessage" alignment="CENTER" text="" style="-fx-font-size: 11; -fx-text-fill: red;"/>
+                <Label/>
                 <Label/>
             </VBox>
     </bottom>
 
     <right>
-        <Label fx:id="animalTrackerErrorMessage" alignment="TOP_RIGHT" text="" style="-fx-font-size: 11; -fx-text-fill: red;"/>
+        <Label fx:id="simulationErrorMessage" alignment="TOP_RIGHT" text="" style="-fx-font-size: 11; -fx-text-fill: red;"/>
     </right>
 
 

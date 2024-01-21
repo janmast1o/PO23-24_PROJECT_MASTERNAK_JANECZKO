@@ -67,6 +67,10 @@ public class Simulation implements Runnable {
         return worldMap;
     }
 
+    public SimulationRules getSimulationRules () {
+        return simulationRules;
+    }
+
     public void setMapChangeListener (MapChangeListener listener) {
         worldMap.addListener(listener);
     }
